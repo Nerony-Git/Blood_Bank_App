@@ -8,9 +8,9 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+<jsp:include page="../third_parties/jquery.jsp"></jsp:include>
 <jsp:include page="../third_parties/boostrap_icon.jsp"></jsp:include>
 <jsp:include page="../third_parties/bootstrap.jsp"></jsp:include>
 <jsp:include page="../third_parties/flexslider.jsp"></jsp:include>
 <jsp:include page="../third_parties/font_awesome.jsp"></jsp:include>
-<jsp:include page="../third_parties/jquery.jsp"></jsp:include>
 <jsp:include page="../third_parties/lightbox.jsp"></jsp:include>
