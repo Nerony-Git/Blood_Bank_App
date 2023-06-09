@@ -21,9 +21,16 @@
 
 
 <!-- FlexSlider JS -->
-<script
+<%--<script
         src="https://cdnjs.cloudflare.com/ajax/libs/flexslider/2.7.2/jquery.flexslider-min.js"
         integrity="sha512-BmoWLYENsSaAfQfHszJM7cLiy9Ml4I0n1YtBQKfx8PaYpZ3SoTXfj3YiDNn0GAdveOCNbK8WqQQYaSb0CMjTHQ=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer">
+
+</script>--%>
+<script
+        src="https://cdnjs.cloudflare.com/ajax/libs/flexslider/2.7.2/jquery.flexslider.js"
+        integrity="sha512-/LtMywMLXZ29TJbETec4e6ndSWPxQDTdsqCud+8Q4IFnKQ1WVlr87r0D5oo9QNO9zuqQNJDmvQxQmvqe8DRYLA=="
         crossorigin="anonymous"
         referrerpolicy="no-referrer">
 
