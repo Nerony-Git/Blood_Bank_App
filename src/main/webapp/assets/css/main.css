@@ -297,6 +297,14 @@ section {
     padding: 60px 0 0;
 }
 
+.section-headless {
+    padding: 0;
+}
+
+.section-foot {
+    padding: 0 0 60px;
+}
+
 .section-bg {
     background-color: #f2f5f4;
 }
