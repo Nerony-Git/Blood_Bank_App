@@ -4,6 +4,12 @@
     background-color: #4568dc;
 }
 
+.bg_border {
+    border: solid 2px #e33e4f;
+    background-color: cornsilk;
+    box-shadow: 5px 5px 5px 5px #bbb4b4;
+}
+
 /*--------------------------------------------------------------
 # Header
 --------------------------------------------------------------*/
@@ -121,7 +127,7 @@
     z-index: 99;
     opacity: 0;
     visibility: hidden;
-    background: #fff;
+    background: cornsilk;
     box-shadow: 0px 0px 30px rgba(127, 137, 161, 0.25);
     transition: 0.3s;
 }
@@ -135,7 +141,7 @@
     font-size: 13px;
     font-weight: 500;
     text-transform: none;
-    color: #1ed2b6;
+    color: #4568dc;
 }
 
 .navbar .dropdown ul a i {
@@ -145,7 +151,7 @@
 .navbar .dropdown ul a:hover,
 .navbar .dropdown ul .active:hover,
 .navbar .dropdown ul li:hover>a {
-    color: #fb058a;
+    color: #ffffff;
 }
 
 .navbar .dropdown:hover>ul {
