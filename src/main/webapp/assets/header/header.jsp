@@ -20,17 +20,17 @@
 
         <nav id="navbar" class="navbar navi">
             <ul>
-                <li class="active"><a class="nav-link" href=""><i class="fa-solid fa-gauge-high"></i> &nbsp; Home</a> </li>
-                <li><a class="nav-link" href=""><i class="fa-solid fa-address-card"></i> &nbsp; About Us</a> </li>
-                <li><a class="nav-link" href=""><i class="fa-solid fa-phone-volume"></i> &nbsp; Contact Us</a> </li>
-                <li><a class="nav-link" href=""><i class="fas fa-sign-in-alt"></i> &nbsp; Login </a> </li>
-                <%--<li class="dropdown"><a href="#"><i class="fas fa-sign-in-alt"></i> <span> &nbsp; Logins</span> <i class="bi bi-chevron-down"></i> </a>
+                <li id="home"><a class="nav-link" href="<%=request.getContextPath()%>/"><i class="fa-solid fa-gauge-high"></i> &nbsp; Home</a> </li>
+                <li id="about"><a class="nav-link" href="<%=request.getContextPath()%>/about_us"><i class="fa-solid fa-address-card"></i> &nbsp; About Us</a> </li>
+                <li id="contact"><a class="nav-link" href="<%=request.getContextPath()%>/contact_us"><i class="fa-solid fa-phone-volume"></i> &nbsp; Contact Us</a> </li>
+                <%--<li><a class="nav-link" href=""><i class="fas fa-sign-in-alt"></i> &nbsp; Login </a> </li>--%>
+                <li class="dropdown" id="login"><a href="#"><i class="fas fa-sign-in-alt"></i> <span> &nbsp; Logins</span> <i class="bi bi-chevron-down"></i> </a>
                     <ul>
-                        <li><a class="nav-link" href="<%=request.getContextPath()%>/user_login"><i class="fas fa-sign-in-alt"></i> &nbsp; Customer Login </a> </li>
-                        <li><a class="nav-link" href="<%=request.getContextPath()%>/doctor_login"><i class="fas fa-sign-in-alt"></i> &nbsp; Doctor Login </a> </li>
+                        <li><a class="nav-link" href="<%=request.getContextPath()%>/user_login"><i class="fas fa-sign-in-alt"></i> &nbsp; Donor Login </a> </li>
+                        <%--<li><a class="nav-link" href="<%=request.getContextPath()%>/doctor_login"><i class="fas fa-sign-in-alt"></i> &nbsp; Doctor Login </a> </li>--%>
                         <li><a class="nav-link" href="<%=request.getContextPath()%>/admin_login"><i class="fas fa-sign-in-alt"></i> &nbsp; Admin Login </a> </li>
                     </ul>
-                </li>--%>
+                </li>
             </ul>
             <i class="bi bi-list mobile-nav-toggle"></i>
         </nav>

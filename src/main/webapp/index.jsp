@@ -155,7 +155,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-4">
-                    <a href="">
+                    <a href="<%=request.getContextPath()%>/user_login">
                         <img src="assets/img/web/login_donor.png" class="img-fluid" alt="Donor Login">
                     </a>
                 </div>
