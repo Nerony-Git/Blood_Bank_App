@@ -134,3 +134,26 @@ $(window).on('load', function () {
         }
     });
 });
+
+/**
+ * Set Header Active
+ */
+const currentURL = window.location.href;
+
+// Get the list items
+const homeLi = document.getElementById('home');
+const aboutLi = document.getElementById('about');
+const contactLi = document.getElementById('contact');
+const loginLi = document.getElementById('login');
+
+// Check if the current URL matches the respective page URL and add the 'active' class
+if (currentURL.includes('/about_us')) {
+    aboutLi.classList.add('active');
+} else if (currentURL.includes('/contact_us')) {
+    contactLi.classList.add('active');
+} else if (currentURL.includes('/user_login') || currentURL.includes('/admin_login')) {
+    loginLi.classList.add('active');
+} else {
+    homeLi.classList.add('active');
+}
+
