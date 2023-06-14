@@ -1,7 +1,10 @@
 package com.george.blood_bank_app.controller;
 
 import com.george.blood_bank_app.dao.AdminDao;
+import com.george.blood_bank_app.dao.BloodGroupDao;
 import com.george.blood_bank_app.model.Admin;
+import com.george.blood_bank_app.model.BloodGroup;
+
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -14,14 +17,16 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 @WebServlet({
         "/admin_login", "/contact_us", "/about_us", "/admin_authenticate", "/admin_dashboard",
-        "/admin_profile", "/admin_edit", "update_admin"
+        "/admin_profile", "/admin_edit", "update_admin", "admin_register"
 })
 public class AdminController extends HttpServlet {
 
     private AdminDao adminDao = new AdminDao();
+    private BloodGroupDao bloodGroupDao = new BloodGroupDao();
     private static final DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     @Override
@@ -63,6 +68,9 @@ public class AdminController extends HttpServlet {
                     break;
                 case "/update_admin":
                     adminUpdate(request, response);
+                    break;
+                case "/admin_register":
+                    adminRegister(request, response);
                     break;
                 default:
                     RequestDispatcher dispatcher = request.getRequestDispatcher("pages/admin/login.jsp");
@@ -154,6 +162,36 @@ public class AdminController extends HttpServlet {
             session.setAttribute("errorMsg", "Fialed to update profile details. Try again!");
             response.sendRedirect("admin_edit");
         }
+
+    }
+
+    private void adminRegister(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<BloodGroup> bloodGroups = bloodGroupDao.getAllBloodGroups();
+        request.setAttribute("bloodGroups", bloodGroups);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("pages/admin/register.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void newAdmin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+        String otherName = request.getParameter("otherName");
+        String username = request.getParameter("username");
+        String gender = request.getParameter("gender");
+        LocalDate dob = LocalDate.parse(request.getParameter("dob"), df);
+        String contact = request.getParameter("contact");
+        String email = request.getParameter("email");
+        String address = request.getParameter("address");
+        String postalAddress = request.getParameter("postalAddress");
+        String bloodGroup = request.getParameter("bloodGroup");
+        String password = request.getParameter("password");
+
+        HttpSession session = request.getSession();
+
+        Admin newAdmin = new Admin();
+        newAdmin.setFirstName(firstName);
+        newAdmin.setLastName(lastName);
+        newAdmin.setOtherName(otherName);
 
     }
 }
