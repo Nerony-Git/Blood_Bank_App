@@ -10,6 +10,11 @@
     box-shadow: 5px 5px 5px 5px #bbb4b4;
 }
 
+.blood {
+    background: linear-gradient(rgba(66, 84, 81, 0.5), rgba(43, 56, 54, 0.5)), url("../img/web/about_us.jpg") fixed center center;
+    background-size: cover;
+}
+
 /*--------------------------------------------------------------
 # Header
 --------------------------------------------------------------*/
@@ -553,7 +558,10 @@ section {
 }
 
 .navi li a:hover,
-.back-to-top:hover{
+.back-to-top:hover,
+.breadcrumbs a:hover,
+.dash a:hover,
+.dash .card:hover {
     color:#ffffff;
     background: rgb(219,60,76);
     background: -moz-linear-gradient(top,  rgba(219,60,76,1) 0%, rgba(197,54,68,1) 56%, rgba(162,44,56,1) 99%);
@@ -764,3 +772,23 @@ section {
         transform: rotate(360deg);
     }
 }
+
+/*--------------------------------------------------------------
+# Breadcrumbs
+--------------------------------------------------------------*/
+.breadcrumbs {
+    display: flex;
+    justify-content: flex-start;
+    padding-top: 5px;
+    background: white;
+    opacity: 40%;
+}
+
+.breadcrumbs a,
+.dash a {
+    text-decoration: none;
+}
+
+/*.breadcrumbs a:hover {
+    color: #fb058a;
+}*/
