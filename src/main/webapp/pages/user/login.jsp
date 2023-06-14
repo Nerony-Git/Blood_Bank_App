@@ -11,7 +11,7 @@
 <html>
 <head>
     <meta charset="ISO-8859-1">
-    <title>Blood Bank</title>
+    <title>Blood Bank - User Login</title>
     <jsp:include page="../../assets/head/head.jsp"></jsp:include>
     <link rel="stylesheet" href="assets/css/main.css">
 
@@ -55,7 +55,7 @@
                                 </div>
                                 <div class="col-md-8">
                                     <!-- Form -->
-                                    <form action="<%=request.getContextPath()%>" method="post">
+                                    <form action="<%=request.getContextPath()%>/user_authenticate" method="post">
                                         <label class="form-label">Username</label>
                                         <div class="input-group mb-3">
                                             <span class="input-group-text" id="uName"><i class="fa fa-tags"></i></span>
