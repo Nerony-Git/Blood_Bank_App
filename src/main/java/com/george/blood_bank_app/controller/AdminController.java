@@ -12,14 +12,17 @@ import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @WebServlet({
         "/admin_login", "/contact_us", "/about_us", "/admin_authenticate", "/admin_dashboard",
-        "/admin_profile"
+        "/admin_profile", "/admin_edit", "update_admin"
 })
 public class AdminController extends HttpServlet {
 
     private AdminDao adminDao = new AdminDao();
+    private static final DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     @Override
     public void init(){
@@ -55,6 +58,12 @@ public class AdminController extends HttpServlet {
                 case "/admin_profile":
                     adminProfile(request, response);
                     break;
+                case "/admin_edit":
+                    adminEditProfile(request, response);
+                    break;
+                case "/update_admin":
+                    adminUpdate(request, response);
+                    break;
                 default:
                     RequestDispatcher dispatcher = request.getRequestDispatcher("pages/admin/login.jsp");
                     dispatcher.forward(request, response);
@@ -89,6 +98,11 @@ public class AdminController extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
+    private void adminEditProfile(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("pages/admin/edit_profile.jsp");
+        dispatcher.forward(request, response);
+    }
+
     private void adminAuthenticate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
@@ -110,5 +124,36 @@ public class AdminController extends HttpServlet {
         } catch (SQLException e) {
             throw new ServletException();
         }
+    }
+
+    private void adminUpdate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+        boolean u;
+
+        String adminID = request.getParameter("uID");
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+        String otherName = request.getParameter("otherName");
+        String gender = request.getParameter("gender");
+        LocalDate dob = LocalDate.parse(request.getParameter("dob"), df);
+        String contact = request.getParameter("contact");
+        String email = request.getParameter("email");
+        String address = request.getParameter("address");
+        String postalAddress = request.getParameter("postalAddress");
+        String bloodGroup = request.getParameter("bloodGroup");
+
+        Admin updatedAdmin = new Admin(adminID, firstName, lastName, otherName, gender, dob, contact, email, address, postalAddress, bloodGroup);
+        u = adminDao.updateAdmin(updatedAdmin);
+        HttpSession session = request.getSession();
+
+        if (u) {
+            Admin updatedAdminObject = adminDao.getAdminByID(adminID);
+            session.setAttribute("successMsg", "Profile details updated successfully.");
+            session.setAttribute("admin", updatedAdminObject);
+            response.sendRedirect("admin_profile");
+        } else {
+            session.setAttribute("errorMsg", "Fialed to update profile details. Try again!");
+            response.sendRedirect("admin_edit");
+        }
+
     }
 }
