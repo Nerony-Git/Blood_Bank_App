@@ -70,7 +70,7 @@
 
                         <div class="row">
                             <!-- Form -->
-                            <form action="<%=request.getContextPath()%>" method="post">
+                            <form action="<%=request.getContextPath()%>/update_admin" method="post">
                                 <div class="col-md-6">
                                     <label class="form-label" for="uID">User ID</label>
                                     <div class="input-group mb-3">
