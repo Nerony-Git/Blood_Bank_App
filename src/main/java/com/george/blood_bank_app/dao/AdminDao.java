@@ -13,6 +13,8 @@ public class AdminDao {
     private static final String ADMIN_LOGIN_SQL = "SELECT * FROM admins WHERE username = ? AND password = ?";
     private static final String ADMIN_UPDATE_PROFILE_SQL = "UPDATE admins SET first_name = ?, last_name = ?, other_name = ?, gender = ?, dob = ?, contact = ?, email = ?, address = ?, postal_address = ?, blood_group = ? WHERE admin_id = ?";
     private static final String GET_ADMIN_BY_ID_SQL = "SELECT * FROM admins WHERE admin_id = ?";
+    private static final String GET_LAST_ADMIN_ID_SQL = "SELECT admin_id FROM admins ORDER BY admin_id DESC LIMIT 1";
+    private static final String ADD_NEW_ADMIN_SQL = "INSERT INTO admins (admin_id, first_name, last_name, other_name, username, gender, dob, contact, email, address, postal_address, blood_group, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 
     public Admin validateAdmin(String username, String password) throws SQLException {
@@ -97,5 +99,56 @@ public class AdminDao {
             }
         } 
         return admin;
+    }
+
+    public String getLastAdminID() throws SQLException {
+        String lastAdminID = null;
+
+        try (Connection connection = JDBCUtils.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(GET_LAST_ADMIN_ID_SQL)){
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                lastAdminID = resultSet.getString("admin_id");
+            }
+
+        }
+        return lastAdminID;
+    }
+
+    public boolean registerAdmin(Admin admin) throws SQLException {
+        boolean u;
+
+        try (Connection connection = JDBCUtils.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(ADD_NEW_ADMIN_SQL)){
+            String lastAdminID = getLastAdminID();
+            String newAdminID;
+
+            if (lastAdminID == null) {
+                newAdminID = "BBA0001"; // Default ID if no records exist
+            } else {
+                int id = Integer.parseInt(lastAdminID.substring(3)) + 1;
+                newAdminID = "BBA" + String.format("%04d", id);
+            }
+
+            preparedStatement.setString(1, newAdminID);
+            preparedStatement.setString(2, admin.getFirstName());
+            preparedStatement.setString(3, admin.getLastName());
+            preparedStatement.setString(4, admin.getOtherName());
+            preparedStatement.setString(5, admin.getUsername());
+            preparedStatement.setString(6, admin.getGender());
+            preparedStatement.setDate(7, JDBCUtils.getSQLDate(admin.getDob()));
+            preparedStatement.setString(8, admin.getContact());
+            preparedStatement.setString(9, admin.getEmail());
+            preparedStatement.setString(10, admin.getAddress());
+            preparedStatement.setString(11, admin.getPostalAddress());
+            preparedStatement.setString(12, admin.getBloodGroup());
+            preparedStatement.setString(13, admin.getPassword());
+
+            u = preparedStatement.executeUpdate() > 0;
+
+        }
+        return u;
     }
 }
