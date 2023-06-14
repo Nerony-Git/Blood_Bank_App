@@ -17,6 +17,27 @@ public class Admin {
     private String password;
     private String bloodGroup;
 
+    public Admin(){
+        
+    }
+
+    public Admin(String adminID, String firstName, String lastName, String otherName, String gender,
+            LocalDate dob, String contact, String email, String address, String postalAddress,
+            String bloodGroup) {
+                super();
+                this.adminID = adminID;
+                this.firstName = firstName;
+                this.lastName = lastName;
+                this.otherName = otherName;
+                this.gender = gender;
+                this.dob = dob;
+                this.contact = contact;
+                this.email = email;
+                this.address = address;
+                this.postalAddress = postalAddress;
+                this.bloodGroup = bloodGroup;
+    }
+
     public String getAdminID() {
         return adminID;
     }
