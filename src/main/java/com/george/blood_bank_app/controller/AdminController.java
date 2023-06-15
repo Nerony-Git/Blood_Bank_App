@@ -21,7 +21,8 @@ import java.util.List;
 
 @WebServlet({
         "/admin_login", "/contact_us", "/about_us", "/admin_authenticate", "/admin_dashboard",
-        "/admin_profile", "/admin_edit", "update_admin", "admin_register"
+        "/admin_profile", "/admin_edit", "/update_admin", "/admin_register", "/new_admin",
+        "/admin_password_change", "/admin_password"
 })
 public class AdminController extends HttpServlet {
 
@@ -48,6 +49,9 @@ public class AdminController extends HttpServlet {
                 case "/admin_login":
                     adminLogin(request, response);
                     break;
+                case "/admin_logout":
+                    adminLogout(request, response);
+                    break;
                 case "/contact_us":
                     contactUs(request, response);
                     break;
@@ -72,6 +76,15 @@ public class AdminController extends HttpServlet {
                 case "/admin_register":
                     adminRegister(request, response);
                     break;
+                case "/new_admin":
+                    newAdmin(request, response);
+                    break;
+                case "/admin_password":
+                    adminPassword(request, response);
+                    break;
+                case "/admin_password_change":
+                    changePassword(request, response);
+                    break;
                 default:
                     RequestDispatcher dispatcher = request.getRequestDispatcher("pages/admin/login.jsp");
                     dispatcher.forward(request, response);
@@ -84,6 +97,13 @@ public class AdminController extends HttpServlet {
     private void adminLogin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RequestDispatcher dispatcher = request.getRequestDispatcher("pages/admin/login.jsp");
         dispatcher.forward(request, response);
+    }
+
+    private void adminLogout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        session.removeAttribute("admin");
+        session.setAttribute("successMsg", "Successfully Logout");
+        response.sendRedirect("admin_login");
     }
 
     private void contactUs(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -107,7 +127,14 @@ public class AdminController extends HttpServlet {
     }
 
     private void adminEditProfile(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<BloodGroup> bloodGroups = bloodGroupDao.getAllBloodGroups();
+        request.setAttribute("bloodGroups", bloodGroups);
         RequestDispatcher dispatcher = request.getRequestDispatcher("pages/admin/edit_profile.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void adminPassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("pages/admin/change_password.jsp");
         dispatcher.forward(request, response);
     }
 
@@ -192,6 +219,56 @@ public class AdminController extends HttpServlet {
         newAdmin.setFirstName(firstName);
         newAdmin.setLastName(lastName);
         newAdmin.setOtherName(otherName);
+        newAdmin.setUsername(username);
+        newAdmin.setGender(gender);
+        newAdmin.setDob(dob);
+        newAdmin.setContact(contact);
+        newAdmin.setEmail(email);
+        newAdmin.setAddress(address);
+        newAdmin.setPostalAddress(postalAddress);
+        newAdmin.setBloodGroup(bloodGroup);
+        newAdmin.setPassword(password);
 
+        try {
+            boolean u = adminDao.registerAdmin(newAdmin);
+
+            if (u) {
+                session.setAttribute("successMsg", "Admin registered successfully.");
+                response.sendRedirect("admin_login");
+            } else {
+                session.setAttribute("errorMsg", "Failed to register admin.");
+                response.sendRedirect("admin_register");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private void changePassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String adminID = request.getParameter("uID");
+        String oldPassword = request.getParameter("password");
+        String newPassword = request.getParameter("password2");
+
+        try {
+            HttpSession session = request.getSession();
+
+            if (adminDao.validateOldPassword(adminID, oldPassword)) {
+
+                if (adminDao.changePassword(adminID, newPassword)) {
+                    session.setAttribute("successMsg", "Password successfully changed.");
+                    session.removeAttribute("admin");
+                    response.sendRedirect("admin_login");
+                } else {
+                    session.setAttribute("errorMsg", "Failed to change password. Try again!");
+                    response.sendRedirect("admin_password");
+                }
+            } else {
+                session.setAttribute("errorMsg", "Old password does not match.");
+                response.sendRedirect("admin_password");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
