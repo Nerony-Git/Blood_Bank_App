@@ -12,7 +12,7 @@
 <html>
 <head>
     <meta charset="ISO-8859-1">
-    <title>Blood Bank - Admin Registeration</title>
+    <title>Blood Bank - Admin Registration</title>
     <jsp:include page="../../assets/head/head.jsp"></jsp:include>
     <link rel="stylesheet" href="assets/css/main.css">
 
@@ -26,13 +26,13 @@
 <!-- ===== Main Body ===== -->
 <main id="main">
 
-    <div class="container p-5">
+    <div class="container mt-5">
         <div class="row">
             <div class="col-md-8 offset-md-2">
-                <div class="card bg_border">
+                <div class="card bg_border mb-5">
                     <div class="card-header text-center text-white bg_color">
                         <p class="fs-4 text-center text-white mt-2">
-                            <i class="fa-solid fa-user-pen"></i>  Admin Registeration
+                            <i class="fa-solid fa-universal-access"></i>  Admin Registration
                         </p>
                     </div>
                     <div class="card-body">
@@ -50,9 +50,10 @@
                         </c:if>
                         <!-- End Error Message -->
 
-                        <div class="row">
-                            <!-- Form -->
-                            <form action="<%=request.getContextPath()%>/" method="post">
+
+                        <!-- Form -->
+                        <form action="<%=request.getContextPath()%>/new_admin" method="post">
+                            <div class="row">
                                 <div class="col-md-6">
                                     <label class="form-label" for="uID">User ID</label>
                                     <div class="input-group mb-3">
@@ -81,13 +82,19 @@
                                     <label class="form-label" for="username">Username</label>
                                     <div class="input-group mb-3">
                                         <span class="input-group-text" id="username"><i class="fa-solid fa-user-tag"></i> </span>
-                                        <input type="text" name="username" class="form-control" aria-label="Username" aria-describedby="username" readonly placeholder="Enter prefered username ...">
+                                        <input type="text" name="username" class="form-control" aria-label="Username" aria-describedby="username" required placeholder="Enter prefered username ...">
                                     </div>
 
                                     <label class="form-label" for="address">Address</label>
                                     <div class="input-group mb-3">
                                         <span class="input-group-text" id="address"><i class="fa-solid fa-map-location-dot"></i> </span>
                                         <input type="text" name="address" class="form-control" aria-label="Address" aria-describedby="address" required  placeholder="Enter address ...">
+                                    </div>
+
+                                    <label class="form-label" for="postalAddress">Postal Address</label>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="postalAddress"><i class="fa-solid fa-street-view"></i> </span>
+                                        <input type="text" name="postalAddress" class="form-control" aria-label="Postal Address" aria-describedby="postalAddress" required  placeholder="Enter postal address ...">
                                     </div>
 
                                 </div>
@@ -121,12 +128,6 @@
                                         <input type="text" name="email" class="form-control" aria-label="Email" aria-describedby="email" required placeholder="Enter email ...">
                                     </div>
 
-                                    <label class="form-label" for="postalAddress">Postal Address</label>
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text" id="postalAddress"><i class="fa-solid fa-street-view"></i> </span>
-                                        <input type="text" name="postalAddress" class="form-control" aria-label="Postal Address" aria-describedby="postalAddress" required  placeholder="Enter postal address ...">
-                                    </div>
-
                                     <label class="form-label" for="bloodGroup">Blood Group</label>
                                     <div class="input-group mb-3">
                                         <span class="input-group-text" id="bloodGroup"><i class="fa-solid fa-staff-snake"></i> </span>
@@ -137,15 +138,25 @@
                                             </c:forEach>
                                         </select>
                                     </div>
+
+                                    <label class="form-label">Password</label>
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text" id="pass"><i class="fa-solid fa-lock"></i></span>
+                                        <input type="password" name="password" id="password" class="form-control" placeholder="Password" aria-label="Password" aria-describedby="pass" required />
+                                        <i class=" view_password input-group-text bi bi-eye-slash" id="togglePassword" onclick="showPassword('password', 'togglePassword')"></i>
+                                    </div>
                                     <br/>
                                     <br/>
 
                                 </div>
-                                <button type="submit" class="btn bg_color text-white"><i class="fa-solid fa-user-gear"></i>   Update Profile </button>
-                            </form>
-                            <!-- End Form -->
+                                <button type="submit" class="btn bg_color text-white"><i class="fa-solid fa-user-plus"></i>   Add New Admin </button>
+                                <br/>
 
-                        </div>
+                            </div>
+                        </form>
+                        <!-- End Form -->
+                        <br/>
+                        <p>Already have an account? <a href="<%=request.getContextPath()%>/admin_login" class="text-decoration-none">Login</a></p>
                     </div>
                 </div>
             </div>
@@ -160,6 +171,7 @@
 <!-- ===== Footer ===== -->
 
 <script type="text/javascript" src="assets/js/main.js"></script>
+<script type="text/javascript" src="assets/js/view_password.js"></script>
 
 </body>
 </html>
