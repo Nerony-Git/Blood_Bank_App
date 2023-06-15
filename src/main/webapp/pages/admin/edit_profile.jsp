@@ -37,7 +37,7 @@
                 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><i class="fa-solid fa-gauge"></i><a href="<%=request.getContextPath()%>/admin_dashboard">  Home </a></li>
-                        <li class="breadcrumb-item active" aria-current="page">  View Profile </li>
+                        <li class="breadcrumb-item active" aria-current="page">  Edit Profile </li>
                     </ol>
                 </nav>
             </div>
@@ -50,7 +50,7 @@
                 <div class="card bg_border">
                     <div class="card-header text-center text-white bg_color">
                         <p class="fs-4 text-center text-white mt-2">
-                            <i class="fa-solid fa-user-pen"></i>  View Profile Details
+                            <i class="fa-solid fa-user-pen"></i>  Edit Profile Details
                         </p>
                     </div>
                     <div class="card-body">
@@ -68,9 +68,9 @@
                         </c:if>
                         <!-- End Error Message -->
 
-                        <div class="row">
-                            <!-- Form -->
-                            <form action="<%=request.getContextPath()%>/update_admin" method="post">
+                        <!-- Form -->
+                        <form action="<%=request.getContextPath()%>/update_admin" method="post">
+                            <div class="row">
                                 <div class="col-md-6">
                                     <label class="form-label" for="uID">User ID</label>
                                     <div class="input-group mb-3">
@@ -149,17 +149,21 @@
                                     <label class="form-label" for="bloodGroup">Blood Group</label>
                                     <div class="input-group mb-3">
                                         <span class="input-group-text" id="bloodGroup"><i class="fa-solid fa-staff-snake"></i> </span>
-                                        <input type="text" name="bloodGroup" class="form-control" aria-label="Blood Group" aria-describedby="bloodGroup" required value="${admin.bloodGroup}">
+                                        <select name="bloodGroup" class="form-select" aria-label="Blood Group" aria-describedby="bloodGroup" required>
+                                            <option selected="selected" disabled="disabled"> ${admin.bloodGroup} </option>
+                                            <c:forEach var="bloodGroup" items="${bloodGroups}">
+                                                <option value="<c:out value="${bloodGroup.bloodGroupName}"/>"><c:out value="${bloodGroup.bloodGroupName}"/></option>
+                                            </c:forEach>
+                                        </select>
                                     </div>
                                     <br/>
                                     <br/>
 
                                 </div>
                                 <button type="submit" class="btn bg_color text-white"><i class="fa-solid fa-user-gear"></i>   Update Profile </button>
-                            </form>
-                            <!-- End Form -->
-
-                        </div>
+                            </div>
+                        </form>
+                        <!-- End Form -->
                     </div>
                 </div>
             </div>
