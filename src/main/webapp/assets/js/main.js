@@ -145,6 +145,7 @@ const homeLi = document.getElementById('home');
 const aboutLi = document.getElementById('about');
 const contactLi = document.getElementById('contact');
 const loginLi = document.getElementById('login');
+const signupLi = document.getElementById('signup');
 
 // Check if the current URL matches the respective page URL and add the 'active' class
 if (currentURL.includes('/about_us')) {
@@ -153,6 +154,8 @@ if (currentURL.includes('/about_us')) {
     contactLi.classList.add('active');
 } else if (currentURL.includes('/user_login') || currentURL.includes('/admin_login')) {
     loginLi.classList.add('active');
+} else if (currentURL.includes('/user_register') || currentURL.includes('/admin_register')) {
+    signupLi.classList.add('active');
 } else {
     homeLi.classList.add('active');
 }
