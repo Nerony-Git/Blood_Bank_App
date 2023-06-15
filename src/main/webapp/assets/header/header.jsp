@@ -24,6 +24,13 @@
                 <li id="about"><a class="nav-link" href="<%=request.getContextPath()%>/about_us"><i class="fa-solid fa-address-card"></i> &nbsp; About Us</a> </li>
                 <li id="contact"><a class="nav-link" href="<%=request.getContextPath()%>/contact_us"><i class="fa-solid fa-phone-volume"></i> &nbsp; Contact Us</a> </li>
                 <%--<li><a class="nav-link" href=""><i class="fas fa-sign-in-alt"></i> &nbsp; Login </a> </li>--%>
+                <li class="dropdown" id="signup"><a href="#"><i class="fas fa-address-book"></i> <span> &nbsp; Signup</span> <i class="bi bi-chevron-down"></i> </a>
+                    <ul>
+                        <li><a class="nav-link" href="<%=request.getContextPath()%>/user_register"><i class="fas fa-user-plus"></i> &nbsp; Donor Signup </a> </li>
+                        <%--<li><a class="nav-link" href="<%=request.getContextPath()%>/doctor_login"><i class="fas fa-sign-in-alt"></i> &nbsp; Doctor Login </a> </li>--%>
+                        <li><a class="nav-link" href="<%=request.getContextPath()%>/admin_register"><i class="fas fa-user-gear"></i> &nbsp; Admin Signup </a> </li>
+                    </ul>
+                </li>
                 <li class="dropdown" id="login"><a href="#"><i class="fas fa-sign-in-alt"></i> <span> &nbsp; Logins</span> <i class="bi bi-chevron-down"></i> </a>
                     <ul>
                         <li><a class="nav-link" href="<%=request.getContextPath()%>/user_login"><i class="fas fa-sign-in-alt"></i> &nbsp; Donor Login </a> </li>
