@@ -74,9 +74,9 @@
             <form action="<%=request.getContextPath()%>/admin_password_change" method="post">
               <div class="input-group mb-3">
                 <span class="input-group-text" id="uID"><i class="fa-solid fa-user-tag"></i></span>
-                <input type="text" class="form-control" aria-label="User ID" aria-describedby="uID" readonly value="<c:out value="${admin.userID}" />" />
+                <input type="text" class="form-control" aria-label="User ID" aria-describedby="uID" readonly value="<c:out value="${admin.adminID}" />" />
               </div>
-              <input type="hidden" name="uID" value="<c:out value="${admin.userID}"/>">
+              <input type="hidden" name="uID" value="<c:out value="${admin.adminID}"/>">
               <div class="input-group mb-3">
                 &nbsp;
               </div>
