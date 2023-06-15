@@ -15,6 +15,28 @@ public class User {
     private String postalAddress;
     private String email;
     private String password;
+    private String bloodGroup;
+
+    public User(){
+        
+    }
+
+    public User(String donorID, String firstName, String lastName, String otherName, String gender,
+            LocalDate dob, String contact, String email, String address, String postalAddress,
+            String bloodGroup) {
+                super();
+                this.donorID = donorID;
+                this.firstName = firstName;
+                this.lastName = lastName;
+                this.otherName = otherName;
+                this.gender = gender;
+                this.dob = dob;
+                this.contact = contact;
+                this.email = email;
+                this.address = address;
+                this.postalAddress = postalAddress;
+                this.bloodGroup = bloodGroup;
+    }
 
     public String getDonorID() {
         return donorID;
@@ -110,5 +132,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getBloodGroup() {
+        return bloodGroup;
+    }
+
+    public void setBloodGroup(String bloodGroup) {
+        this.bloodGroup = bloodGroup;
     }
 }
