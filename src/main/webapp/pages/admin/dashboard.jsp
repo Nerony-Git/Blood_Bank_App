@@ -120,11 +120,6 @@
         </div>
 
     </div>
-    <%--<div class="container">
-        <div class="row">
-            <img src="assets/img/web/admin_panel.png" >
-        </div>
-    </div>--%>
 </main>
 <!-- ===== End Main Body ===== -->
 
