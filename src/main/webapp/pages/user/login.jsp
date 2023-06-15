@@ -75,7 +75,7 @@
                             </div>
                         </div>
                         <br/>
-                        <p>Not registered yet? <a href="<%=request.getContextPath()%>" class="text-decoration-none">Register</a></p>
+                        <p>Not registered yet? <a href="<%=request.getContextPath()%>/user_register" class="text-decoration-none">Register</a></p>
                     </div>
                 </div>
             </div>
