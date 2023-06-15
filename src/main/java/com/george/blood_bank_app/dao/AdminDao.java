@@ -15,6 +15,8 @@ public class AdminDao {
     private static final String GET_ADMIN_BY_ID_SQL = "SELECT * FROM admins WHERE admin_id = ?";
     private static final String GET_LAST_ADMIN_ID_SQL = "SELECT admin_id FROM admins ORDER BY admin_id DESC LIMIT 1";
     private static final String ADD_NEW_ADMIN_SQL = "INSERT INTO admins (admin_id, first_name, last_name, other_name, username, gender, dob, contact, email, address, postal_address, blood_group, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String VALIDATE_OLD_PASSWORD_SQL = "SELECT * FROM admins WHERE admin_id = ? AND password = ?";
+    private static final String CHANGE_PASSWORD_SQL = "UPDATE admins SET password = ? WHERE admin_id = ?";
 
 
     public Admin validateAdmin(String username, String password) throws SQLException {
@@ -148,6 +150,40 @@ public class AdminDao {
 
             u = preparedStatement.executeUpdate() > 0;
 
+        }
+        return u;
+    }
+
+    public boolean validateOldPassword(String adminID, String oldPassword) throws SQLException {
+        boolean u = false;
+
+        try (Connection connection = JDBCUtils.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(VALIDATE_OLD_PASSWORD_SQL)){
+            preparedStatement.setString(1, adminID);
+            preparedStatement.setString(2, oldPassword);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                u = true;
+            }
+        }
+        return u;
+    }
+
+    public boolean changePassword(String adminID, String newPassword) throws SQLException {
+        boolean u = false;
+
+        try (Connection connection = JDBCUtils.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(CHANGE_PASSWORD_SQL)){
+            preparedStatement.setString(1, newPassword);
+            preparedStatement.setString(2, adminID);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                u = true;
+            }
         }
         return u;
     }
