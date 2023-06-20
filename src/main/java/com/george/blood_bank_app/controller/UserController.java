@@ -21,7 +21,8 @@ import java.util.List;
 
 @WebServlet({
         "/user_login", "/user_authenticate", "/user_dashboard", "/user_profile", "/user_edit", 
-        "/update_user", "/user_register", "/new_user", "/user_password_change", "/user_password"
+        "/update_user", "/user_register", "/new_user", "/user_password_change", "/user_password",
+        "/user_logout"
 })
 public class UserController extends HttpServlet {
 
@@ -129,10 +130,11 @@ public class UserController extends HttpServlet {
             User user = userDao.validateUser(username, password);
             String destPage = "/user_login";
             HttpSession session = request.getSession();
+            session.removeAttribute("successMsg");
 
             if (user != null) {
                 session.setAttribute("user", user);
-                destPage = "/";
+                destPage = "/user_dashboard";
             } else {
                 session.setAttribute("errorMsg", "Invalid username or password.");
             }
@@ -230,8 +232,8 @@ public class UserController extends HttpServlet {
 
     private void changePassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String donorID = request.getParameter("uID");
-        String oldPassword = request.getParameter("password");
-        String newPassword = request.getParameter("password2");
+        String oldPassword = request.getParameter("password2");
+        String newPassword = request.getParameter("password");
 
         try {
             HttpSession session = request.getSession();
