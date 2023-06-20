@@ -72,6 +72,7 @@
 
             <!-- Form -->
             <form action="<%=request.getContextPath()%>/admin_password_change" method="post">
+              <label class="form-label" for="uID">Admin ID</label>
               <div class="input-group mb-3">
                 <span class="input-group-text" id="uID"><i class="fa-solid fa-user-tag"></i></span>
                 <input type="text" class="form-control" aria-label="User ID" aria-describedby="uID" readonly value="<c:out value="${admin.adminID}" />" />
@@ -80,20 +81,24 @@
               <div class="input-group mb-3">
                 &nbsp;
               </div>
-              <label class="form-label">Old Password</label>
+              <label class="form-label" for="password2">Old Password</label>
               <div class="input-group mb-3">
                 <span class="input-group-text" id="pass"><i class="fa-solid fa-lock"></i></span>
                 <input type="password" name="password2" id="password2" class="form-control" placeholder="Enter your old password here..." aria-label="Old Password" aria-describedby="pass" required />
                 <i class=" view_password input-group-text bi bi-eye-slash" id="togglePassword2" onclick="showPassword('password2', 'togglePassword2')"></i>
               </div>
-              <label class="form-label">New Password</label>
+              <label class="form-label" for="password">New Password</label>
               <div class="input-group mb-3">
                 <span class="input-group-text" id="passed"><i class="fa-solid fa-lock"></i></span>
                 <input type="password" name="password" id="password" class="form-control" placeholder="Enter your new password here..." aria-label="New Password" aria-describedby="passed" required />
                 <i class=" view_password input-group-text bi bi-eye-slash" id="togglePassword" onclick="showPassword('password', 'togglePassword')"></i>
               </div>
+              <br/>
+              <br/>
 
               <button type="submit" class="btn bg_color text-white col-md-12"><i class="fa-solid fa-user-gear"></i> &nbsp; Update Password </button>
+              <br/>
+              <br/>
             </form>
             <!-- End Form -->
 
