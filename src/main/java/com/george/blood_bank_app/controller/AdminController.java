@@ -2,9 +2,11 @@ package com.george.blood_bank_app.controller;
 
 import com.george.blood_bank_app.dao.AdminDao;
 import com.george.blood_bank_app.dao.BloodGroupDao;
+import com.george.blood_bank_app.dao.UserDao;
 import com.george.blood_bank_app.model.Admin;
 import com.george.blood_bank_app.model.BloodGroup;
 
+import com.george.blood_bank_app.model.User;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -22,11 +24,13 @@ import java.util.List;
 @WebServlet({
         "/admin_login", "/contact_us", "/about_us", "/admin_authenticate", "/admin_dashboard",
         "/admin_profile", "/admin_edit", "/update_admin", "/admin_register", "/new_admin",
-        "/admin_password_change", "/admin_password"
+        "/admin_password_change", "/admin_password", "/admin_logout", "/users", "/view_donor",
+        "/edit_donor", "/update_donor"
 })
 public class AdminController extends HttpServlet {
 
     private AdminDao adminDao = new AdminDao();
+    private UserDao userDao = new UserDao();
     private BloodGroupDao bloodGroupDao = new BloodGroupDao();
     private static final DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
@@ -84,6 +88,18 @@ public class AdminController extends HttpServlet {
                     break;
                 case "/admin_password_change":
                     changePassword(request, response);
+                    break;
+                case "/users":
+                    adminUsers(request, response);
+                    break;
+                case "/view_donor":
+                    viewDonor(request, response);
+                    break;
+                case "/edit_donor":
+                    editDonor(request, response);
+                    break;
+                case "/update_donor":
+                    donorUpdate(request, response);
                     break;
                 default:
                     RequestDispatcher dispatcher = request.getRequestDispatcher("pages/admin/login.jsp");
@@ -199,6 +215,13 @@ public class AdminController extends HttpServlet {
         dispatcher.forward(request, response);
     }
 
+    private void adminUsers(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+        List<User> allDonors = userDao.getAllUsers();
+        request.setAttribute("allDonors", allDonors);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("pages/admin/users.jsp");
+        dispatcher.forward(request, response);
+    }
+
     private void newAdmin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String firstName = request.getParameter("firstName");
         String lastName = request.getParameter("lastName");
@@ -247,8 +270,8 @@ public class AdminController extends HttpServlet {
 
     private void changePassword(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String adminID = request.getParameter("uID");
-        String oldPassword = request.getParameter("password");
-        String newPassword = request.getParameter("password2");
+        String oldPassword = request.getParameter("password2");
+        String newPassword = request.getParameter("password");
 
         try {
             HttpSession session = request.getSession();
@@ -270,5 +293,54 @@ public class AdminController extends HttpServlet {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void viewDonor(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+        String donorID = request.getParameter("id");
+        User donor = userDao.getDonorByID(donorID);
+        request.setAttribute("donor", donor);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("pages/admin/view_donor.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void editDonor(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+        String donorID = request.getParameter("id");
+        User donor = userDao.getDonorByID(donorID);
+        request.setAttribute("donor", donor);
+        List<BloodGroup> bloodGroups = bloodGroupDao.getAllBloodGroups();
+        request.setAttribute("bloodGroups", bloodGroups);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("pages/admin/edit_donor.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void donorUpdate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+        boolean u;
+
+        String donorID = request.getParameter("uID");
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+        String otherName = request.getParameter("otherName");
+        String gender = request.getParameter("gender");
+        LocalDate dob = LocalDate.parse(request.getParameter("dob"), df);
+        String contact = request.getParameter("contact");
+        String email = request.getParameter("email");
+        String address = request.getParameter("address");
+        String postalAddress = request.getParameter("postalAddress");
+        String bloodGroup = request.getParameter("bloodGroup");
+
+        User updatedDonor = new User(donorID, firstName, lastName, otherName, gender, dob, contact, email, address, postalAddress, bloodGroup);
+        u = userDao.updateUser(updatedDonor);
+        HttpSession session = request.getSession();
+
+        if (u) {
+            User updatedUserObject = userDao.getDonorByID(donorID);
+            session.setAttribute("successMsg", "Profile details updated successfully.");
+            session.setAttribute("user", updatedUserObject);
+            response.sendRedirect("view_donor");
+        } else {
+            session.setAttribute("errorMsg", "Fialed to update profile details. Try again!");
+            response.sendRedirect("edit_donor");
+        }
+
     }
 }
