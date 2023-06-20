@@ -38,6 +38,22 @@ public class User {
                 this.bloodGroup = bloodGroup;
     }
 
+    public User(String donorID, String firstName, String lastName, String otherName, String username, String gender, LocalDate dob, String contact, String email, String address, String postalAddress, String bloodGroup) {
+        super();
+        this.donorID = donorID;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.otherName = otherName;
+        this.username = username;
+        this.gender = gender;
+        this.dob = dob;
+        this.contact = contact;
+        this.email = email;
+        this.address = address;
+        this.postalAddress = postalAddress;
+        this.bloodGroup = bloodGroup;
+    }
+
     public String getDonorID() {
         return donorID;
     }
