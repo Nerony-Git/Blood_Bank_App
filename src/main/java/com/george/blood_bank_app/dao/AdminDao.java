@@ -1,12 +1,16 @@
 package com.george.blood_bank_app.dao;
 
 import com.george.blood_bank_app.model.Admin;
+import com.george.blood_bank_app.model.User;
 import com.george.blood_bank_app.utils.JDBCUtils;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AdminDao {
 
@@ -179,11 +183,8 @@ public class AdminDao {
             preparedStatement.setString(1, newPassword);
             preparedStatement.setString(2, adminID);
 
-            ResultSet resultSet = preparedStatement.executeQuery();
-
-            while (resultSet.next()) {
-                u = true;
-            }
+            preparedStatement.executeUpdate();
+            u = true;
         }
         return u;
     }
