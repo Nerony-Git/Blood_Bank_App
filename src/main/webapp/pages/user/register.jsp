@@ -32,7 +32,7 @@
                 <div class="card bg_border mb-5">
                     <div class="card-header text-center text-white bg_color">
                         <p class="fs-4 text-center text-white mt-2">
-                            <i class="fa-solid fa-universal-access"></i>  User Registration
+                            <i class="fa-solid fa-hospital-user"></i>  Donor Registration
                         </p>
                     </div>
                     <div class="card-body">
