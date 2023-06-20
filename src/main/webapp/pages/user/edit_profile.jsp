@@ -36,7 +36,7 @@
             <div class="breadcrumbs">
                 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><i class="fa-solid fa-gauge"></i><a href="<%=request.getContextPath()%>/admin_dashboard">  Home </a></li>
+                        <li class="breadcrumb-item"><i class="fa-solid fa-gauge"></i><a href="<%=request.getContextPath()%>/user_dashboard">  Home </a></li>
                         <li class="breadcrumb-item active" aria-current="page">  Edit Profile </li>
                     </ol>
                 </nav>
@@ -72,12 +72,12 @@
                         <form action="<%=request.getContextPath()%>/update_user" method="post">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label class="form-label" for="uID">User ID</label>
+                                    <label class="form-label" for="uID">Donor ID</label>
                                     <div class="input-group mb-3">
                                         <span class="input-group-text" id="uID"><i class="fa-solid fa-user-tag"></i> </span>
-                                        <input type="text" name="uID" class="form-control" aria-label="User ID" aria-describedby="uID" readonly value="${user.adminID}">
+                                        <input type="text" name="uID" class="form-control" aria-label="User ID" aria-describedby="uID" readonly value="${user.donorID}">
                                     </div>
-                                    <input type="hidden" name="uID" value="${user.adminID}">
+                                    <input type="hidden" name="uID" value="${user.donorID}">
 
                                     <label class="form-label" for="firstName">First Name</label>
                                     <div class="input-group mb-3">
@@ -149,7 +149,7 @@
                                     <label class="form-label" for="bloodGroup">Blood Group</label>
                                     <div class="input-group mb-3">
                                         <span class="input-group-text" id="bloodGroup"><i class="fa-solid fa-staff-snake"></i> </span>
-                                        <input name="bloodGroup" class="form-select" aria-label="Blood Group" aria-describedby="bloodGroup" readonly value="${user.bloodGroup}">
+                                        <input name="bloodGroup" class="form-control" aria-label="Blood Group" aria-describedby="bloodGroup" readonly value="${user.bloodGroup}">
                                     </div>
                                     <br/>
                                     <br/>
