@@ -105,14 +105,14 @@
             </div>
 
             <div class="col-md-4">
-                <a href="">
+                <a href="<%=request.getContextPath()%>/users">
                     <div class="card bg_border">
                         <div class="card-body text-center">
                             <br/>
-                            <i class="fa-solid fa-hand-holding-medical fa-3x"></i>
+                            <i class="fa-solid fa-users-line fa-3x"></i>
                             <br/>
                             <br/>
-                            <p class="fs-4 text-center">Request <br/> Blood</p>
+                            <p class="fs-4 text-center">Donors <br/> List </p>
                         </div>
                     </div>
                 </a>
