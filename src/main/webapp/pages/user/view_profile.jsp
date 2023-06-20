@@ -70,10 +70,10 @@
 
                         <div class="row">
                             <div class="col-md-6">
-                                <label class="form-label" for="uID">User ID</label>
+                                <label class="form-label" for="uID">Donor ID</label>
                                 <div class="input-group mb-3">
                                     <span class="input-group-text" id="uID"><i class="fa-solid fa-user-tag"></i> </span>
-                                    <input type="text" name="uID" class="form-control" aria-label="User ID" aria-describedby="uID" readonly value="${user.adminID}">
+                                    <input type="text" name="uID" class="form-control" aria-label="User ID" aria-describedby="uID" readonly value="${user.donorID}">
                                 </div>
 
                                 <label class="form-label" for="firstName">First Name</label>
