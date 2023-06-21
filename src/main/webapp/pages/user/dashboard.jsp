@@ -45,7 +45,7 @@
         <div class="row dash mb-5">
 
             <div class="col-md-4 offset-md-2">
-                <a href="">
+                <a href="<%=request.getContextPath()%>/user_donation">
                     <div class="card bg_border">
                         <div class="card-body text-center">
                             <br/>
@@ -59,11 +59,11 @@
             </div>
 
             <div class="col-md-4">
-                <a href="">
+                <a href="<%=request.getContextPath()%>/user_request_blood">
                     <div class="card bg_border">
                         <div class="card-body text-center">
                             <br/>
-                            <i class="fa-solid fa-hand-holding-medical fa-3x"></i>
+                            <i class="fa-solid fa-hand-holding-droplet fa-3x"></i>
                             <br/>
                             <br/>
                             <p class="fs-4 text-center">Request <br/> Blood</p>
@@ -77,11 +77,11 @@
         <div class="row dash">
 
             <div class="col-md-4">
-                <a href="">
+                <a href="<%=request.getContextPath()%>/donor_donations">
                     <div class="card bg_border">
                         <div class="card-body text-center">
                             <br/>
-                            <i class="fa-solid fa-hand-holding-medical fa-3x"></i>
+                            <i class="fa-solid fa-droplet fa-3x"></i>
                             <br/>
                             <br/>
                             <p class="fs-4 text-center">View <br/> Donations</p>
@@ -91,11 +91,11 @@
             </div>
 
             <div class="col-md-4">
-                <a href="">
+                <a href="<%=request.getContextPath()%>/donor_requests">
                     <div class="card bg_border">
                         <div class="card-body text-center">
                             <br/>
-                            <i class="fa-solid fa-hand-holding-medical fa-3x"></i>
+                            <i class="fa-solid fa-hand-holding-heart fa-3x"></i>
                             <br/>
                             <br/>
                             <p class="fs-4 text-center">View <br/> Request</p>
