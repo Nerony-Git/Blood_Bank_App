@@ -15,6 +15,7 @@ public class BloodDonationDao {
     private static final String INSERT_NEW_DONATION_SQL = "INSERT INTO blood_donation (donation_id, donor_id, camp, donation_date, blood_units, comments) VALUES (?, ?, ?, ?, ?, ?)";
     private static final String GET_LAST_DONATION_ID_SQL = "SELECT donation_id FROM blood_donation ORDER BY donation_id DESC LIMIT 1";
     private static final String GET_DONATIONS_BY_DONOR_SQL = "SELECT * FROM blood_donation WHERE donor_id = ?";
+    private static final String GET_DONATIONS_BY_ID_SQL = "SELECT * FROM blood_donation WHERE donation_id = ?";
 
 
     private UserDao userDao = new UserDao();
@@ -82,5 +83,30 @@ public class BloodDonationDao {
             }
         }
         return donorBloodDonations;
+    }
+
+    public BloodDonation getDonationByID(String donationID) throws SQLException {
+        BloodDonation bloodDonation = null;
+
+        try (Connection connection = JDBCUtils.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(GET_DONATIONS_BY_ID_SQL)){
+            preparedStatement.setString(1, donationID);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                bloodDonation = new BloodDonation();
+
+                bloodDonation.setDonationID(resultSet.getString("donation_id"));
+                bloodDonation.setDonorID(resultSet.getString("donor_id"));
+                bloodDonation.setCamp(resultSet.getString("camp"));
+                bloodDonation.setDonationDate(resultSet.getDate("donation_date").toLocalDate());
+                bloodDonation.setBloodUnit(resultSet.getInt("blood_units"));
+                bloodDonation.setComment(resultSet.getString("comments"));
+
+            }
+        }
+
+        return bloodDonation;
     }
 }
