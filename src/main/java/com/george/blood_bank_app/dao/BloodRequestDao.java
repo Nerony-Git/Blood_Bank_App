@@ -17,6 +17,7 @@ public class BloodRequestDao {
     private static final String GET_LAST_REQUEST_ID_SQL = "SELECT request_id FROM blood_request ORDER BY request_id DESC LIMIT 1";
     private static final String INSERT_NEW_REQUEST_SQL = "INSERT INTO blood_request (request_id, donor_id, blood_group, request_date, comment) VALUES (?, ?, ?, ?, ?)";
     private static final String GET_REQUESTS_BY_DONOR_SQL = "SELECT * FROM blood_request WHERE donor_id = ?";
+    private static final String GET_REQUEST_BY_ID_SQL = "SELECT * FROM blood_request WHERE request_id = ?";
 
 
     private UserDao userDao = new UserDao();
@@ -76,11 +77,33 @@ public class BloodRequestDao {
                 donorID = userDao.getDonorsName(donorID);
                 String bloodGroup = resultSet.getString("blood_group");
                 LocalDate requestDate = resultSet.getDate("request_date").toLocalDate();
-                String comment = resultSet.getString("comments");
+                String comment = resultSet.getString("comment");
 
                 donorBloodRequests.add(new BloodRequest(requestID, donorID, bloodGroup, requestDate, comment));
             }
         }
         return donorBloodRequests;
+    }
+
+    public BloodRequest getRequestByID(String requestID) throws SQLException {
+        BloodRequest bloodRequest = null;
+
+        try (Connection connection = JDBCUtils.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(GET_REQUEST_BY_ID_SQL)){
+            preparedStatement.setString(1, requestID);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            if (resultSet.next()) {
+                bloodRequest = null;
+
+                bloodRequest.setRequestID(resultSet.getString("request_id"));
+                bloodRequest.setDonorID(resultSet.getString("donor_id"));
+                bloodRequest.setBloodGroup(resultSet.getString("blood_group"));
+                bloodRequest.setRequestDate(resultSet.getDate("request_date").toLocalDate());
+                bloodRequest.setComment(resultSet.getString("comment"));
+            }
+        }
+        return bloodRequest;
     }
 }
