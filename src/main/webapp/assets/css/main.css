@@ -15,6 +15,19 @@
     background-size: cover;
 }
 
+.bg_btn {
+    border:0px;
+    background:linear-gradient(#900,#D50000);
+    /*width:100px;*/
+    height:35px;
+    border-radius:10px 1px 10px 1px;
+    box-shadow:1px 1px 5px black;
+    color:white;
+    font-weight:bold;
+    /*font-size:14px;*/
+    text-shadow:1px 1px 6px black;
+}
+
 /*--------------------------------------------------------------
 # Header
 --------------------------------------------------------------*/
