@@ -76,25 +76,25 @@
                                     <label class="form-label"> Request ID</label>
                                     <div class="input-group mb-3">
                                         <span class="input-group-text" id="requestID"><i class="fa-solid fa-tags"></i></span>
-                                        <input type="text" name="requestID" class="form-control" aria-label="Request ID" aria-describedby="requestID" disabled value="${request.requestID}" />
+                                        <input type="text" name="requestID" class="form-control" aria-label="Request ID" aria-describedby="requestID" disabled value="${bloodRequest.requestID}" />
                                     </div>
 
                                     <label class="form-label">Blood Group</label>
                                     <div class="input-group mb-3">
                                         <span class="input-group-text" id="bloodGroup"><i class="fa-solid fa-staff-snake"></i> </span>
-                                        <input type="text" name="bloodGroup" class="form-control" aria-label="Blood Group" aria-describedby="bloodGroup" disabled value="${request.bloodGroup}">
+                                        <input type="text" name="bloodGroup" class="form-control" aria-label="Blood Group" aria-describedby="bloodGroup" disabled value="${bloodRequest.bloodGroup}">
                                     </div>
 
                                     <label class="form-label">Request Date</label>
                                     <div class="input-group mb-3">
                                         <span class="input-group-text" id="requestDate"><i class="fa-solid fa-calendar"></i> </span>
-                                        <input type="date" name="requestDate" class="form-control" aria-label="Request Date" aria-describedby="requestDate" disabled value="${request.requestDate}">
+                                        <input type="date" name="requestDate" class="form-control" aria-label="Request Date" aria-describedby="requestDate" disabled value="${bloodRequest.requestDate}">
                                     </div>
 
                                     <label class="form-label">Comments</label>
                                     <div class="input-group mb-3">
                                         <span class="input-group-text" id="comments"><i class="fa-solid fa-comments"></i> </span>
-                                        <textarea name="comment" class="form-control" rows="4" aria-label="Comments" aria-describedby="comments" disabled>${request.comment}</textarea>
+                                        <textarea name="comment" class="form-control" rows="4" aria-label="Comments" aria-describedby="comments" disabled>${bloodRequest.comment}</textarea>
                                     </div>
 
                                 </div>
@@ -103,7 +103,7 @@
                                     <label class="form-label">Donor ID</label>
                                     <div class="input-group mb-3">
                                         <span class="input-group-text" id="uID"><i class="fa-solid fa-user-tag"></i> </span>
-                                        <input type="text" name="uID" class="form-control" aria-label="User ID" aria-describedby="uID" readonly value="${request.donorID}">
+                                        <input type="text" name="uID" class="form-control" aria-label="User ID" aria-describedby="uID" readonly value="${bloodRequest.donorID}">
                                     </div>
                                     <input type="hidden" name="uID" value="${user.donorID}">
 
