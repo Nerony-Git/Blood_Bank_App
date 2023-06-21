@@ -22,6 +22,7 @@ public class UserDao {
     private static final String VALIDATE_OLD_PASSWORD_SQL = "SELECT * FROM donors WHERE donor_id = ? AND password = ?";
     private static final String CHANGE_PASSWORD_SQL = "UPDATE donors SET password = ? WHERE donor_id = ?";
     private static final String GET_ALL_DONORS_SQL = "SELECT * FROM donors ORDER BY donor_id ASC";
+    private static final String GET_DONOR_NAME_SQL = "SELECT first_name, last_name, other_name FROM donors WHERE donor_id = ?";
 
 
     public User validateUser(String username, String password) throws SQLException {
@@ -216,6 +217,26 @@ public class UserDao {
 
         }
         return allDonors;
+    }
+
+    public String getDonorsName(String donorID) throws SQLException {
+        String donorsName = null;
+
+        try (Connection connection = JDBCUtils.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(GET_DONOR_NAME_SQL)){
+            preparedStatement.setString(1, donorID);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                String firstName = resultSet.getString("first_name");
+                String lastName = resultSet.getString("last_name");
+                String otherName = resultSet.getString("other_name");
+
+                donorsName = firstName + " " + otherName + " " + lastName;
+            }
+        }
+        return donorsName;
     }
 
 }
