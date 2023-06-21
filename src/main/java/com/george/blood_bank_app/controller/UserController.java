@@ -1,10 +1,10 @@
 package com.george.blood_bank_app.controller;
 
+import com.george.blood_bank_app.dao.BloodDonationDao;
 import com.george.blood_bank_app.dao.BloodGroupDao;
+import com.george.blood_bank_app.dao.BloodRequestDao;
 import com.george.blood_bank_app.dao.UserDao;
-import com.george.blood_bank_app.model.Admin;
-import com.george.blood_bank_app.model.BloodGroup;
-import com.george.blood_bank_app.model.User;
+import com.george.blood_bank_app.model.*;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -22,12 +22,16 @@ import java.util.List;
 @WebServlet({
         "/user_login", "/user_authenticate", "/user_dashboard", "/user_profile", "/user_edit", 
         "/update_user", "/user_register", "/new_user", "/user_password_change", "/user_password",
-        "/user_logout"
+        "/user_logout", "/user_donation", "/user_request_blood", "/new_donation", "/new_request",
+        "/donor_donations", "/donor_requests"
 })
 public class UserController extends HttpServlet {
 
     private UserDao userDao = new UserDao();
     private BloodGroupDao bloodGroupDao = new BloodGroupDao();
+    private BloodDonationDao bloodDonationDao = new BloodDonationDao();
+    private BloodRequestDao bloodRequestDao = new BloodRequestDao();
+
     private static final DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     @Override
@@ -78,6 +82,24 @@ public class UserController extends HttpServlet {
                     break;
                 case "/user_password_change":
                     changePassword(request, response);
+                    break;
+                case "/user_donation":
+                    userDonation(request, response);
+                    break;
+                case "/user_request_blood":
+                    userRequestBlood(request, response);
+                    break;
+                case "/new_donation":
+                    newDonation(request, response);
+                    break;
+                case "/new_request":
+                    newRequest(request, response);
+                    break;
+                case "/donor_donations":
+                    viewDonorDonation(request, response);
+                    break;
+                case "/donor_requests":
+                    viewDonorRequest(request, response);
                     break;
                 default:
                     RequestDispatcher dispatcher = request.getRequestDispatcher("pages/user/login.jsp");
@@ -256,4 +278,101 @@ public class UserController extends HttpServlet {
             e.printStackTrace();
         }
     }
+
+    private void userDonation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        /*List<BloodGroup> bloodGroups = bloodGroupDao.getAllBloodGroups();
+        request.setAttribute("bloodGroups", bloodGroups);*/
+        RequestDispatcher dispatcher = request.getRequestDispatcher("pages/user/donate_blood.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void userRequestBlood(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<BloodGroup> bloodGroups = bloodGroupDao.getAllBloodGroups();
+        request.setAttribute("bloodGroups", bloodGroups);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("pages/user/request_blood.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void newDonation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String donationID = request.getParameter("donationID");
+        String donorID = request.getParameter("donorID");
+        String donationCamp = request.getParameter("donationCamp");
+        int bloodUnit = Integer.parseInt(request.getParameter("bloodUnit"));
+        LocalDate donationDate = LocalDate.parse(request.getParameter("donationDate"), df);
+        String comment = request.getParameter("comment");
+
+        HttpSession session = request.getSession();
+
+        BloodDonation newDonation = new BloodDonation();
+        newDonation.setDonationID(donationID);
+        newDonation.setDonorID(donorID);
+        newDonation.setCamp(donationCamp);
+        newDonation.setBloodUnit(bloodUnit);
+        newDonation.setDonationDate(donationDate);
+        newDonation.setComment(comment);
+
+        try {
+            boolean u = bloodDonationDao.registerDonation(newDonation);
+
+            if (u) {
+                session.setAttribute("successMsg", "Blood donation registered successfully.");
+                response.sendRedirect("donor_donations");
+            } else {
+                session.setAttribute("errorMsg", "Failed to register blood donation.");
+                response.sendRedirect("user_donation");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void newRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String requestID = request.getParameter("requestID");
+        String donorID = request.getParameter("donorID");
+        String bloodGroup = request.getParameter("bloodGroup");
+        LocalDate requestDate = LocalDate.parse(request.getParameter("requestDate"), df);
+        String comment = request.getParameter("comment");
+
+        HttpSession session = request.getSession();
+
+        BloodRequest newRequest = new BloodRequest();
+        newRequest.setRequestID(requestID);
+        newRequest.setDonorID(donorID);
+        newRequest.setBloodGroup(bloodGroup);
+        newRequest.setRequestDate(requestDate);
+        newRequest.setComment(comment);
+
+        try {
+            boolean u = bloodRequestDao.registerRequest(newRequest);
+
+            if (u) {
+                session.setAttribute("successMsg", "Blood requested successfully.");
+                response.sendRedirect("donor_request");
+            } else {
+                session.setAttribute("errorMsg", "Failed to request blood.");
+                response.sendRedirect("user_request_blood");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void viewDonorDonation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+        User user = (User) request.getSession().getAttribute("user");
+        String donorID = user.getDonorID();
+        List<BloodDonation> allDonorDonations = bloodDonationDao.getDonationsByDonor(donorID);
+        request.setAttribute("allDonorDonations", allDonorDonations);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("pages/user/view_donations.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void viewDonorRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+        User user = (User) request.getSession().getAttribute("user");
+        String donorID = user.getDonorID();
+        List<BloodRequest> allDonorRequests = bloodRequestDao.getRequestsByDonor(donorID);
+        request.setAttribute("allDonorRequests", allDonorRequests);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("pages/user/view_requests.jsp");
+        dispatcher.forward(request, response);
+    }
+
 }
