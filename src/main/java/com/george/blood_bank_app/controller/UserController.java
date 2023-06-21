@@ -23,7 +23,7 @@ import java.util.List;
         "/user_login", "/user_authenticate", "/user_dashboard", "/user_profile", "/user_edit", 
         "/update_user", "/user_register", "/new_user", "/user_password_change", "/user_password",
         "/user_logout", "/user_donation", "/user_request_blood", "/new_donation", "/new_request",
-        "/donor_donations", "/donor_requests"
+        "/donor_donations", "/donor_requests", "/view_donor_donation", "/view_donor_request"
 })
 public class UserController extends HttpServlet {
 
@@ -100,6 +100,12 @@ public class UserController extends HttpServlet {
                     break;
                 case "/donor_requests":
                     viewDonorRequest(request, response);
+                    break;
+                case "/view_donor_donation":
+                    donorDonation(request, response);
+                    break;
+                case "/view_donor_request":
+                    donorRequest(request, response);
                     break;
                 default:
                     RequestDispatcher dispatcher = request.getRequestDispatcher("pages/user/login.jsp");
@@ -372,6 +378,24 @@ public class UserController extends HttpServlet {
         List<BloodRequest> allDonorRequests = bloodRequestDao.getRequestsByDonor(donorID);
         request.setAttribute("allDonorRequests", allDonorRequests);
         RequestDispatcher dispatcher = request.getRequestDispatcher("pages/user/view_requests.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void donorDonation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+        String donationID = request.getParameter("id");
+
+        BloodDonation donation = bloodDonationDao.getDonationByID(donationID);
+        request.setAttribute("donation", donation);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("pages/user/view_donation.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void donorRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+        String requestID = request.getParameter("id");
+
+        BloodRequest bloodRequest = bloodRequestDao.getRequestByID(requestID);
+        request.setAttribute("bloodRequest", bloodRequest);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("pages/user/view_request.jsp");
         dispatcher.forward(request, response);
     }
 
