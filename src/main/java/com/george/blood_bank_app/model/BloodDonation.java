@@ -25,6 +25,14 @@ public class BloodDonation {
         this.comment = comment;
     }
 
+    public BloodDonation(String donationID, String donationCamp, LocalDate donationDate, int bloodUnit) {
+        super();
+        this.donationID = donationID;
+        this.camp = donationCamp;
+        this.donationDate = donationDate;
+        this.bloodUnit = bloodUnit;
+    }
+
     public String getDonationID() {
         return donationID;
     }
