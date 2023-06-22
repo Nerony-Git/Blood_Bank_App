@@ -48,10 +48,11 @@
         <div class="row">
             <div class="col-md-8 offset-md-2">
                 <div class="card bg_border">
-                    <div class="card-header text-center text-white bg_color">
-                        <p class="fs-4 text-center text-white mt-2">
+                    <div class="card-header text-center">
+                        <img src="assets/img/web/update_profile.png" alt="Edit profile title.">
+                        <%--<p class="fs-4 text-center text-white mt-2">
                             <i class="fa-solid fa-user-pen"></i>  Edit Profile Details
-                        </p>
+                        </p>--%>
                     </div>
                     <div class="card-body">
                         <!-- Success Message -->
@@ -155,7 +156,10 @@
                                     <br/>
 
                                 </div>
-                                <button type="submit" class="btn bg_color text-white"><i class="fa-solid fa-user-gear"></i>   Update Profile </button>
+                                <div class="input-group justify" style="justify-content: center;">
+                                    <button type="submit" class="bg_btn">&nbsp;<i class="fa-solid fa-user-gear"></i> &nbsp; Update Profile &nbsp; </button>
+                                </div>
+
                             </div>
                         </form>
                         <!-- End Form -->
