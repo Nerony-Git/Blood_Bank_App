@@ -22,7 +22,8 @@ import java.util.List;
         "/admin_profile", "/admin_edit", "/update_admin", "/admin_register", "/new_admin",
         "/admin_password_change", "/admin_password", "/admin_logout", "/users", "/view_donor",
         "/edit_donor", "/update_donor", "/view_donation", "/view_donations", "/edit_donation",
-        "/update_donation"
+        "/update_donation", "/view_requests", "/view_request", "/edit_request", "/view_new_requests",
+        "/update_request"
 })
 public class AdminController extends HttpServlet {
 
@@ -31,6 +32,7 @@ public class AdminController extends HttpServlet {
     private BloodGroupDao bloodGroupDao = new BloodGroupDao();
     private BloodDonationDao bloodDonationDao = new BloodDonationDao();
     private DonationCampDao donationCampDao = new DonationCampDao();
+    private BloodRequestDao bloodRequestDao = new BloodRequestDao();
     private static final DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     @Override
@@ -111,6 +113,21 @@ public class AdminController extends HttpServlet {
                     break;
                 case "/update_donation":
                     updateDonation(request, response);
+                    break;
+                case "/view_requests":
+                    viewRequests(request, response);
+                    break;
+                case "/view_request":
+                    viewRequest(request, response);
+                    break;
+                case "/edit_request":
+                    editRequest(request, response);
+                    break;
+                case "/view_new_requests":
+                    viewNewRequests(request, response);
+                    break;
+                case "/update_request":
+                    updateRequest(request, response);
                     break;
                 default:
                     RequestDispatcher dispatcher = request.getRequestDispatcher("pages/admin/login.jsp");
@@ -400,6 +417,69 @@ public class AdminController extends HttpServlet {
         } else {
             session.setAttribute("errorMsg", "Failed to update donation details.");
             response.sendRedirect("edit_donation");
+        }
+
+    }
+
+    private void viewRequests(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+        List<BloodRequest> allBloodRequests = bloodRequestDao.getAllRequests();
+        request.setAttribute("allBloodRequests", allBloodRequests);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("pages/admin/view_requests.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void viewRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+        String requestID = request.getParameter("id");
+
+        BloodRequest bloodRequest = bloodRequestDao.getRequestByID(requestID);
+        request.setAttribute("bloodRequest", bloodRequest);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("pages/admin/view_request.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void editRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+        String requestID = request.getParameter("id");
+
+        BloodRequest bloodRequest = bloodRequestDao.getRequestByID(requestID);
+        request.setAttribute("bloodRequest", bloodRequest);
+
+        List<BloodGroup> bloodGroups = bloodGroupDao.getAllBloodGroups();
+        request.setAttribute("bloodGroups", bloodGroups);
+
+        String donorID = bloodRequest.getDonorID();
+        User user = userDao.getDonorByID(donorID);
+        request.setAttribute("user", user);
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("pages/admin/edit_request.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void viewNewRequests(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+        String status = "Pending";
+
+        List<BloodRequest> allNewBloodRequests = bloodRequestDao.getAllNewRequests(status);
+        request.setAttribute("allNewBloodRequests", allNewBloodRequests);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("pages/admin/view_new_requests.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void updateRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+        String bloodGroup = request.getParameter("bloodGroup");
+        LocalDate requestDate = LocalDate.parse(request.getParameter("requestDate"));
+        String status = request.getParameter("status");
+        String requestResponse = request.getParameter("requestResponse");
+        String requestID = request.getParameter("requestID");
+
+        BloodRequest bloodRequest = new BloodRequest(requestID, requestResponse, bloodGroup, requestDate, requestID, status);
+        boolean u = bloodRequestDao.updateRequest(bloodRequest);
+        HttpSession session = request.getSession();
+
+        if (u) {
+            session.setAttribute("successMsg", "Request details updated successfully.");
+            response.sendRedirect("view_requests");
+        } else {
+            session.setAttribute("errorMsg", "Failed to update request details.");
+            response.sendRedirect("edit_request");
         }
 
     }
