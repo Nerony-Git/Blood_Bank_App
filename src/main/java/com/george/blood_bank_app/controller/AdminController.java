@@ -1,12 +1,8 @@
 package com.george.blood_bank_app.controller;
 
-import com.george.blood_bank_app.dao.AdminDao;
-import com.george.blood_bank_app.dao.BloodGroupDao;
-import com.george.blood_bank_app.dao.UserDao;
-import com.george.blood_bank_app.model.Admin;
-import com.george.blood_bank_app.model.BloodGroup;
+import com.george.blood_bank_app.dao.*;
+import com.george.blood_bank_app.model.*;
 
-import com.george.blood_bank_app.model.User;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -25,13 +21,16 @@ import java.util.List;
         "/admin_login", "/contact_us", "/about_us", "/admin_authenticate", "/admin_dashboard",
         "/admin_profile", "/admin_edit", "/update_admin", "/admin_register", "/new_admin",
         "/admin_password_change", "/admin_password", "/admin_logout", "/users", "/view_donor",
-        "/edit_donor", "/update_donor"
+        "/edit_donor", "/update_donor", "/view_donation", "/view_donations", "/edit_donation",
+        "/update_donation"
 })
 public class AdminController extends HttpServlet {
 
     private AdminDao adminDao = new AdminDao();
     private UserDao userDao = new UserDao();
     private BloodGroupDao bloodGroupDao = new BloodGroupDao();
+    private BloodDonationDao bloodDonationDao = new BloodDonationDao();
+    private DonationCampDao donationCampDao = new DonationCampDao();
     private static final DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     @Override
@@ -100,6 +99,18 @@ public class AdminController extends HttpServlet {
                     break;
                 case "/update_donor":
                     donorUpdate(request, response);
+                    break;
+                case "/view_donations":
+                    viewDonations(request, response);
+                    break;
+                case "/view_donation":
+                    viewDonation(request, response);
+                    break;
+                case "/edit_donation":
+                    editDonation(request, response);
+                    break;
+                case "/update_donation":
+                    updateDonation(request, response);
                     break;
                 default:
                     RequestDispatcher dispatcher = request.getRequestDispatcher("pages/admin/login.jsp");
@@ -340,6 +351,55 @@ public class AdminController extends HttpServlet {
         } else {
             session.setAttribute("errorMsg", "Fialed to update profile details. Try again!");
             response.sendRedirect("edit_donor");
+        }
+
+    }
+
+    private void viewDonations(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+        List<BloodDonation> allBloodDonations = bloodDonationDao.getAllDonations();
+        request.setAttribute("allBloodDonations", allBloodDonations);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("pages/admin/view_donations.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void viewDonation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+        String donationID = request.getParameter("id");
+
+        BloodDonation donation = bloodDonationDao.getDonationByID(donationID);
+        request.setAttribute("donation", donation);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("pages/admin/view_donation.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void editDonation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+        String donationID = request.getParameter("id");
+
+        BloodDonation donation = bloodDonationDao.getDonationByID(donationID);
+        request.setAttribute("donation", donation);
+
+        List<DonationCamp> donationCamps = donationCampDao.getAllCamps();
+        request.setAttribute("donationCamps", donationCamps);
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("pages/admin/edit_donation.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void updateDonation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+        String donationCamp = request.getParameter("donationCamp");
+        LocalDate donationDate = LocalDate.parse(request.getParameter("donationDate"), df);
+        int bloodUnit = Integer.parseInt(request.getParameter("bloodUnit"));
+        String donationID = request.getParameter("donationID");
+
+        BloodDonation bloodDonation = new BloodDonation(donationID, donationCamp, donationDate, bloodUnit);
+        boolean u = bloodDonationDao.updateDonation(bloodDonation);
+        HttpSession session = request.getSession();
+
+        if (u) {
+            session.setAttribute("successMsg", "Donation details updated successfully");
+            response.sendRedirect("view_donations");
+        } else {
+            session.setAttribute("errorMsg", "Failed to update donation details.");
+            response.sendRedirect("edit_donation");
         }
 
     }
