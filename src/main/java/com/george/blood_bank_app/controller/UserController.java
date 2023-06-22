@@ -1,9 +1,6 @@
 package com.george.blood_bank_app.controller;
 
-import com.george.blood_bank_app.dao.BloodDonationDao;
-import com.george.blood_bank_app.dao.BloodGroupDao;
-import com.george.blood_bank_app.dao.BloodRequestDao;
-import com.george.blood_bank_app.dao.UserDao;
+import com.george.blood_bank_app.dao.*;
 import com.george.blood_bank_app.model.*;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
@@ -31,6 +28,7 @@ public class UserController extends HttpServlet {
     private BloodGroupDao bloodGroupDao = new BloodGroupDao();
     private BloodDonationDao bloodDonationDao = new BloodDonationDao();
     private BloodRequestDao bloodRequestDao = new BloodRequestDao();
+    private DonationCampDao donationCampDao = new DonationCampDao();
 
     private static final DateTimeFormatter df = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
@@ -285,9 +283,9 @@ public class UserController extends HttpServlet {
         }
     }
 
-    private void userDonation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        /*List<BloodGroup> bloodGroups = bloodGroupDao.getAllBloodGroups();
-        request.setAttribute("bloodGroups", bloodGroups);*/
+    private void userDonation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+        List<DonationCamp> donationCamps = donationCampDao.getAllCamps();
+        request.setAttribute("donationCamps", donationCamps);
         RequestDispatcher dispatcher = request.getRequestDispatcher("pages/user/donate_blood.jsp");
         dispatcher.forward(request, response);
     }
@@ -300,7 +298,6 @@ public class UserController extends HttpServlet {
     }
 
     private void newDonation(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String donationID = request.getParameter("donationID");
         String donorID = request.getParameter("donorID");
         String donationCamp = request.getParameter("donationCamp");
         int bloodUnit = Integer.parseInt(request.getParameter("bloodUnit"));
@@ -310,7 +307,6 @@ public class UserController extends HttpServlet {
         HttpSession session = request.getSession();
 
         BloodDonation newDonation = new BloodDonation();
-        newDonation.setDonationID(donationID);
         newDonation.setDonorID(donorID);
         newDonation.setCamp(donationCamp);
         newDonation.setBloodUnit(bloodUnit);
@@ -333,7 +329,6 @@ public class UserController extends HttpServlet {
     }
 
     private void newRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String requestID = request.getParameter("requestID");
         String donorID = request.getParameter("donorID");
         String bloodGroup = request.getParameter("bloodGroup");
         LocalDate requestDate = LocalDate.parse(request.getParameter("requestDate"), df);
@@ -342,7 +337,6 @@ public class UserController extends HttpServlet {
         HttpSession session = request.getSession();
 
         BloodRequest newRequest = new BloodRequest();
-        newRequest.setRequestID(requestID);
         newRequest.setDonorID(donorID);
         newRequest.setBloodGroup(bloodGroup);
         newRequest.setRequestDate(requestDate);
@@ -353,7 +347,7 @@ public class UserController extends HttpServlet {
 
             if (u) {
                 session.setAttribute("successMsg", "Blood requested successfully.");
-                response.sendRedirect("donor_request");
+                response.sendRedirect("donor_requests");
             } else {
                 session.setAttribute("errorMsg", "Failed to request blood.");
                 response.sendRedirect("user_request_blood");
