@@ -50,7 +50,7 @@
             <div class="col-md-6 offset-md-3">
                 <div class="card bg_border">
                     <div class="card-header text-center">
-                        <img src="assets/img/web/donation.png" alt="Donation title">
+                        <img src="assets/img/web/view_donation.png" alt="Donation title">
                         <%--<p class="fs-4 text-center text-white mt-2">
                           <i class="fa-solid fa-user"></i>   Blood Donated
                         </p>--%>
@@ -81,7 +81,7 @@
                             <label class="form-label"> Donation Camp</label>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="donationCamp"><i class="fa-solid fa-hospital"></i> </span>
-                                <input type="text" class="form-control" aria-label="Donation Camp" aria-describedby="donationCamp" disabled value="${donation.donationCamp}">
+                                <input type="text" class="form-control" aria-label="Donation Camp" aria-describedby="donationCamp" disabled value="${donation.camp}">
                             </div>
 
                             <label class="form-label">Donation Date</label>
