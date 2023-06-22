@@ -18,6 +18,9 @@ public class BloodRequestDao {
     private static final String INSERT_NEW_REQUEST_SQL = "INSERT INTO blood_request (request_id, donor_id, blood_group, request_date, comment, status) VALUES (?, ?, ?, ?, ?, ?)";
     private static final String GET_REQUESTS_BY_DONOR_SQL = "SELECT * FROM blood_request WHERE donor_id = ?";
     private static final String GET_REQUEST_BY_ID_SQL = "SELECT * FROM blood_request WHERE request_id = ?";
+    private static final String GET_ALL_REQUESTS_SQL = "SELECT * FROM blood_request ORDER BY request_id ASC";
+    private static final String GET_ALL_NEW_REQUESTS_SQL = "SELECT * FROM blood_request WHERE status = ? ORDER BY request_id ASC";
+    private static final String UPDATE_REQUEST_BY_ID_SQL = "UPDATE blood_request SET blood_group = ?, request_date = ?, status = ?, response = ? WHERE request_id = ?";
 
 
     private UserDao userDao = new UserDao();
@@ -111,5 +114,69 @@ public class BloodRequestDao {
             }
         }
         return bloodRequest;
+    }
+
+    public List<BloodRequest> getAllRequests() throws SQLException {
+        List<BloodRequest> bloodRequests = new ArrayList<>();
+
+        try (Connection connection = JDBCUtils.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_REQUESTS_SQL)){
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                String requestID = resultSet.getString("request_id");
+                String donorID = resultSet.getString("donor_id");
+                donorID = userDao.getDonorsName(donorID);
+                String bloodGroup = resultSet.getString("blood_group");
+                LocalDate requestDate = resultSet.getDate("request_date").toLocalDate();
+                String comment = resultSet.getString("comment");
+                String status = resultSet.getString("status");
+
+                bloodRequests.add(new BloodRequest(requestID, donorID, bloodGroup, requestDate, comment, status));
+
+            }
+        }
+        return bloodRequests;
+    }
+
+    public List<BloodRequest> getAllNewRequests(String stat) throws SQLException {
+        List<BloodRequest> newBloodRequests = new ArrayList<>();
+
+        try (Connection connection = JDBCUtils.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_NEW_REQUESTS_SQL)){
+            preparedStatement.setString(1, stat);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()){
+                String requestID = resultSet.getString("request_id");
+                String donorID = resultSet.getString("donor_id");
+                donorID = userDao.getDonorsName(donorID);
+                String bloodGroup = resultSet.getString("blood_group");
+                LocalDate requestDate = resultSet.getDate("request_date").toLocalDate();
+                String comment = resultSet.getString("comment");
+                String status = resultSet.getString("status");
+
+                newBloodRequests.add(new BloodRequest(requestID, donorID, bloodGroup, requestDate, comment, status));
+
+            }
+        }
+        return newBloodRequests;
+    }
+
+    public boolean updateRequest(BloodRequest bloodRequest) throws SQLException {
+        boolean u;
+
+        try (Connection connection = JDBCUtils.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_REQUEST_BY_ID_SQL)){
+            preparedStatement.setString(1, bloodRequest.getBloodGroup());
+            preparedStatement.setDate(2, JDBCUtils.getSQLDate(bloodRequest.getRequestDate()));
+            preparedStatement.setString(3, bloodRequest.getStatus());
+            preparedStatement.setString(4, bloodRequest.getResponse());
+            preparedStatement.setString(5, bloodRequest.getRequestID());
+
+            u = preparedStatement.executeUpdate() > 0;
+        }
+        return u;
     }
 }
