@@ -50,7 +50,7 @@
             <div class="col-md-8 offset-md-2">
                 <div class="card bg_border">
                     <div class="card-header text-center">
-                        <img src="assets/img/web/request_blood.png" alt="Request blood title">
+                        <img src="assets/img/web/view_request.png" alt="Request blood title">
                         <%--<p class="fs-4 text-center text-white mt-2">
                             <i class="fa-solid fa-user"></i>   Request Blood
                         </p>--%>
@@ -94,8 +94,20 @@
                                     <label class="form-label">Comments</label>
                                     <div class="input-group mb-3">
                                         <span class="input-group-text" id="comments"><i class="fa-solid fa-comments"></i> </span>
-                                        <textarea name="comment" class="form-control" rows="4" aria-label="Comments" aria-describedby="comments" disabled>${bloodRequest.comment}</textarea>
+                                        <textarea name="comment" class="form-control" rows="3" aria-label="Comments" aria-describedby="comments" disabled>${bloodRequest.comment}</textarea>
                                     </div>
+
+                                    <c:choose>
+                                        <c:when test="${bloodRequest.status == 'Canceled'}">
+                                            <span class="badge bg-danger">Canceled</span>
+                                        </c:when>
+                                        <c:when test="${bloodRequest.status == 'Completed'}">
+                                            <span class="badge bg-success">Completed</span>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <span class="badge bg-warning">Pending</span>
+                                        </c:otherwise>
+                                    </c:choose>
 
                                 </div>
 
@@ -131,13 +143,17 @@
                                         <input type="text" name="postalAddress" class="form-control" aria-label="Postal Address" aria-describedby="postalAddress" disabled value="${user.postalAddress}">
                                     </div>
                                 </div>
+
+                                <div class="row mb-3">&nbsp;</div>
+
+                                <label class="form-label">Response</label>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="response"><i class="fa-solid fa-comment-dots"></i> </span>
+                                    <textarea name="response" class="form-control" rows="4" aria-label="Comments" aria-describedby="response" disabled>${bloodRequest.response}</textarea>
+
+                                </div>
                             </div>
 
-                            <br/>
-                            <br/>
-                            <div class="input-group justify" style="justify-content: center;">
-                                <button type="submit" class="bg_btn">&nbsp;<i class="fa-solid fa-hand-holding-droplet"></i>    Request Blood &nbsp;</button>
-                            </div>
                             <br/>
                             <br/>
 
