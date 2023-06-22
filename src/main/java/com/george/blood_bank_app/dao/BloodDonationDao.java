@@ -16,6 +16,8 @@ public class BloodDonationDao {
     private static final String GET_LAST_DONATION_ID_SQL = "SELECT donation_id FROM blood_donation ORDER BY donation_id DESC LIMIT 1";
     private static final String GET_DONATIONS_BY_DONOR_SQL = "SELECT * FROM blood_donation WHERE donor_id = ?";
     private static final String GET_DONATIONS_BY_ID_SQL = "SELECT * FROM blood_donation WHERE donation_id = ?";
+    private static final String GET_ALL_DONATIONS_SQL = "SELECT * FROM blood_donation ORDER BY donation_id ASC";
+    private static final String UPDATE_DONATIONS_BY_ID_SQL = "UPDATE blood_donation SET camp = ?, donation_date = ?, blood_units = ? WHERE donation_id = ?";
 
 
     private UserDao userDao = new UserDao();
@@ -108,5 +110,42 @@ public class BloodDonationDao {
         }
 
         return bloodDonation;
+    }
+
+    public List<BloodDonation> getAllDonations() throws SQLException {
+        List<BloodDonation> bloodDonations = new ArrayList<>();
+
+        try (Connection connection = JDBCUtils.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_DONATIONS_SQL)){
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            while (resultSet.next()) {
+                String donationID = resultSet.getString("donation_id");
+                String donorID = resultSet.getString("donor_id");
+                donorID = userDao.getDonorsName(donorID);
+                String donationCamp = resultSet.getString("camp");
+                LocalDate donationDate = resultSet.getDate("donation_date").toLocalDate();
+                int bloodUnits = resultSet.getInt("blood_units");
+                String comment = resultSet.getString("comments");
+
+                bloodDonations.add(new BloodDonation(donationID, donorID, donationCamp, donationDate, bloodUnits, comment));
+            }
+        }
+        return bloodDonations;
+    }
+
+    public boolean updateDonation(BloodDonation bloodDonation) throws SQLException {
+        boolean u;
+
+        try (Connection connection = JDBCUtils.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(UPDATE_DONATIONS_BY_ID_SQL)){
+            preparedStatement.setString(1, bloodDonation.getCamp());
+            preparedStatement.setDate(2, JDBCUtils.getSQLDate(bloodDonation.getDonationDate()));
+            preparedStatement.setInt(3, bloodDonation.getBloodUnit());
+            preparedStatement.setString(4, bloodDonation.getDonationID());
+
+            u = preparedStatement.executeUpdate() > 0;
+        }
+        return u;
     }
 }
