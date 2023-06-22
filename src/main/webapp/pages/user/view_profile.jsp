@@ -48,10 +48,11 @@
         <div class="row">
             <div class="col-md-8 offset-md-2">
                 <div class="card bg_border">
-                    <div class="card-header text-center text-white bg_color">
-                        <p class="fs-4 text-center text-white mt-2">
+                    <div class="card-header text-center">
+                        <img src="assets/img/web/view_profile.png" alt="View profile title.">
+                        <%--<p class="fs-4 text-center text-white mt-2">
                             <i class="fa-solid fa-user-pen"></i>  View Profile Details
-                        </p>
+                        </p>--%>
                     </div>
                     <div class="card-body">
                         <!-- Success Message -->
