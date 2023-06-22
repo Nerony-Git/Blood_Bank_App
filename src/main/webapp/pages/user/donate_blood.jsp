@@ -77,13 +77,16 @@
                 <span class="input-group-text" id="donationID"><i class="fa-solid fa-tags"></i></span>
                 <input type="text" class="form-control" aria-label="User ID" aria-describedby="donationID" disabled placeholder="Donation ID will be automatically assigned." />
               </div>
-              <input type="hidden" id="donorID" value="${user.donorID}">
+              <input type="hidden" name="donorID" value="${user.donorID}">
 
               <label class="form-label"> Donation Camp</label>
               <div class="input-group mb-3">
                 <span class="input-group-text" id="donationCamp"><i class="fa-solid fa-hospital"></i> </span>
-                <select class="form-select" aria-label="Donation Camp" aria-describedby="donationCamp">
+                <select class="form-select" name="donationCamp" aria-label="Donation Camp" aria-describedby="donationCamp">
                   <option selected disabled> --- Select Donation Camp --- </option>
+                  <c:forEach var="donationCamp" items="${donationCamps}">
+                    <option value="<c:out value="${donationCamp.campID}"/> "> <c:out value="${donationCamp.campName}"/></option>
+                  </c:forEach>
                 </select>
               </div>
 
@@ -102,11 +105,11 @@
               <label class="form-label">Comments</label>
               <div class="input-group mb-3">
                 <span class="input-group-text" id="comments"><i class="fa-solid fa-comments"></i> </span>
-                <textarea name="comments" class="form-control" rows="4" aria-label="Comments" aria-describedby="comments" required placeholder="Type your comments here ..."></textarea>
+                <textarea name="comment" class="form-control" rows="4" aria-label="Comments" aria-describedby="comments" required placeholder="Type your comments here ..."></textarea>
               </div>
               <br/>
               <div class="input-group justify" style="justify-content: center;">
-                <button type="submit" class="bg_btn">&nbsp;<i class="fa-solid fa-hand-holding-medical"></i>    Register Donation &nbsp;</button>
+                <button type="submit" class="bg_btn">&nbsp;<i class="fa-solid fa-hand-holding-medical"></i> &nbsp; Register Donation &nbsp;</button>
               </div>
               <br/>
               <br/>
