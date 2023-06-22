@@ -36,7 +36,7 @@
             <div class="breadcrumbs">
                 <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><i class="fa-solid fa-gauge"></i><a href="<%=request.getContextPath()%>/user_dashboard">  Home </a></li>
+                        <li class="breadcrumb-item"><i class="fa-solid fa-gauge"></i><a href="<%=request.getContextPath()%>/admin_dashboard">  Home </a></li>
                         <li class="breadcrumb-item"><a href="<%=request.getContextPath()%>/users">  Donor List </a></li>
                         <li class="breadcrumb-item active" aria-current="page">  View Donor </li>
                     </ol>
