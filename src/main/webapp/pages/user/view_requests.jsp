@@ -70,19 +70,33 @@
                             <th scope="col">Donor Name</th>
                             <th scope="col" style="text-align: center">Blood Group</th>
                             <th scope="col" style="text-align: center">Required Date</th>
+                            <th scope="col" style="text-align: center">Status</th>
                             <th scope="col" style="text-align: center">Action</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <c:forEach var="request" items="${allDonorDonations}">
+                        <c:forEach var="donorRequest" items="${allDonorRequests}">
                             <tr>
-                                <td><c:out value="${request.requestID}"/></td>
-                                <td><c:out value="${request.donorID}"/></td>
-                                <td style="text-align: center"><c:out value="${request.bloodGroup}"/></td>
-                                <td style="text-align: center"><c:out value="${request.requestDate}"/></td>
+                                <td><c:out value="${donorRequest.requestID}"/></td>
+                                <td><c:out value="${donorRequest.donorID}"/></td>
+                                <td style="text-align: center"><c:out value="${donorRequest.bloodGroup}"/></td>
+                                <td style="text-align: center"><c:out value="${donorRequest.requestDate}"/></td>
+                                <td style="text-align: center" class="text-black">
+                                    <c:choose>
+                                        <c:when test="${donorRequest.status == 'Canceled'}">
+                                            <span class="badge bg-danger">Canceled</span>
+                                        </c:when>
+                                        <c:when test="${donorRequest.status == 'Completed'}">
+                                            <span class="badge bg-success">Completed</span>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <span class="badge bg-warning">Pending</span>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </td>
                                 <td style="text-align: center">
                                     <div class="btn-group">
-                                        <a href="view_donor_request?id=<c:out value="${request.requestID}"/>" class="btn btn-sm btn-primary"><i class="fa-solid fa-eye"></i>  View </a> &nbsp;
+                                        <a href="view_donor_request?id=<c:out value="${donorRequest.requestID}"/>" class="btn btn-sm btn-primary"><i class="fa-solid fa-eye"></i>  View </a> &nbsp;
                                         <%--<a href="edit_donor?id=<c:out value="${request.requestID}"/>" class="btn btn-sm btn-warning"><i class="fa-solid fa-user-pen"></i>  Edit </a> &nbsp;
                                         <a href="" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash-can"></i>  Delete </a>--%>
                                     </div>
