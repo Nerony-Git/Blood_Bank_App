@@ -8,18 +8,21 @@ public class BloodRequest {
     private String bloodGroup;
     private LocalDate requestDate;
     private String comment;
+    private String status;
+    private String response;
 
 
     public BloodRequest(){
 
     }
-    public BloodRequest(String requestID, String donorID, String bloodGroup, LocalDate requestDate, String comment) {
+    public BloodRequest(String requestID, String donorID, String bloodGroup, LocalDate requestDate, String comment, String status) {
         super();
         this.requestID = requestID;
         this.donorID = donorID;
         this.bloodGroup = bloodGroup;
         this.requestDate = requestDate;
         this.comment = comment;
+        this.status = status;
     }
 
     public String getRequestID() {
@@ -60,5 +63,21 @@ public class BloodRequest {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getResponse() {
+        return response;
+    }
+
+    public void setResponse(String response) {
+        this.response = response;
     }
 }
