@@ -76,7 +76,7 @@
 
         <div class="row dash">
 
-            <div class="col-md-4">
+            <div class="col-md-4 offset-md-2">
                 <a href="<%=request.getContextPath()%>/donor_donations">
                     <div class="card bg_border">
                         <div class="card-body text-center">
@@ -99,20 +99,6 @@
                             <br/>
                             <br/>
                             <p class="fs-4 text-center">View <br/> Request</p>
-                        </div>
-                    </div>
-                </a>
-            </div>
-
-            <div class="col-md-4">
-                <a href="">
-                    <div class="card bg_border">
-                        <div class="card-body text-center">
-                            <br/>
-                            <i class="fa-solid fa-hand-holding-medical fa-3x"></i>
-                            <br/>
-                            <br/>
-                            <p class="fs-4 text-center">Request <br/> Blood</p>
                         </div>
                     </div>
                 </a>
