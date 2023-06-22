@@ -79,7 +79,7 @@
                             <tr>
                                 <td><c:out value="${donation.donationID}"/></td>
                                 <td><c:out value="${donation.donorID}"/></td>
-                                <td style="text-align: center"><c:out value="${donation.donationCamp}"/></td>
+                                <td style="text-align: center"><c:out value="${donation.camp}"/></td>
                                 <td style="text-align: center"><c:out value="${donation.donationDate}"/></td>
                                 <td style="text-align: center">
                                     <div class="btn-group">
