@@ -45,14 +45,14 @@
         <div class="row dash mb-5">
 
             <div class="col-md-4 offset-md-2">
-                <a href="">
+                <a href="<%=request.getContextPath()%>/view_donations">
                     <div class="card bg_border">
                         <div class="card-body text-center">
                             <br/>
-                            <i class="fa-solid fa-hand-holding-medical fa-3x"></i>
+                            <i class="fa-solid fa-droplet fa-3x"></i>
                             <br/>
                             <br/>
-                            <p class="fs-4 text-center">Blood <br/> Donation</p>
+                            <p class="fs-4 text-center">View <br/> Donations</p>
                         </div>
                     </div>
                 </a>
@@ -63,10 +63,10 @@
                     <div class="card bg_border">
                         <div class="card-body text-center">
                             <br/>
-                            <i class="fa-solid fa-hand-holding-medical fa-3x"></i>
+                            <i class="fa-solid fa-hand-holding-heart fa-3x"></i>
                             <br/>
                             <br/>
-                            <p class="fs-4 text-center">Request <br/> Blood</p>
+                            <p class="fs-4 text-center">View <br/> Requests</p>
                         </div>
                     </div>
                 </a>
@@ -81,10 +81,10 @@
                     <div class="card bg_border">
                         <div class="card-body text-center">
                             <br/>
-                            <i class="fa-solid fa-hand-holding-medical fa-3x"></i>
+                            <i class="fa-solid fa-dna fa-3x"></i>
                             <br/>
                             <br/>
-                            <p class="fs-4 text-center">View <br/> Donations</p>
+                            <p class="fs-4 text-center">Blood <br/> Groups</p>
                         </div>
                     </div>
                 </a>
@@ -95,10 +95,10 @@
                     <div class="card bg_border">
                         <div class="card-body text-center">
                             <br/>
-                            <i class="fa-solid fa-hand-holding-medical fa-3x"></i>
+                            <i class="fa-solid fa-tents fa-3x"></i>
                             <br/>
                             <br/>
-                            <p class="fs-4 text-center">View <br/> Request</p>
+                            <p class="fs-4 text-center">Donation <br/> Camps</p>
                         </div>
                     </div>
                 </a>
