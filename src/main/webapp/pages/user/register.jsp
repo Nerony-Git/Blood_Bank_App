@@ -149,7 +149,11 @@
                                     <br/>
 
                                 </div>
-                                <button type="submit" class="btn bg_color text-white"><i class="fa-solid fa-user-plus"></i>   Add New Donor </button>
+
+                                <div class="input-group justify" style="justify-content: center;">
+                                    <button type="submit" class="bg_btn">&nbsp;<i class="fa-solid fa-user-plus"></i> &nbsp; Add New Donor &nbsp;</button>
+                                </div>
+
                                 <br/>
 
                             </div>
