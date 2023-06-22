@@ -111,7 +111,7 @@
                                         <span class="input-group-text" id="uID"><i class="fa-solid fa-user-tag"></i> </span>
                                         <input type="text" name="uID" class="form-control" aria-label="User ID" aria-describedby="uID" readonly value="${user.donorID}">
                                     </div>
-                                    <input type="hidden" name="uID" value="${user.donorID}">
+                                    <input type="hidden" name="donorID" value="${user.donorID}">
 
                                     <label class="form-label">Donor Name</label>
                                     <div class="input-group mb-3">
@@ -142,7 +142,7 @@
                             <br/>
                             <br/>
                             <div class="input-group justify" style="justify-content: center;">
-                                <button type="submit" class="bg_btn">&nbsp;<i class="fa-solid fa-hand-holding-droplet"></i>    Request Blood &nbsp;</button>
+                                <button type="submit" class="bg_btn">&nbsp;<i class="fa-solid fa-hand-holding-droplet"></i> &nbsp; Request Blood &nbsp;</button>
                             </div>
                             <br/>
                             <br/>
