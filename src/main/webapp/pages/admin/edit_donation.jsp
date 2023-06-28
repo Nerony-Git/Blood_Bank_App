@@ -8,6 +8,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -76,7 +77,7 @@
               <label class="form-label"> Donation ID</label>
               <div class="input-group mb-3">
                 <span class="input-group-text" id="donationID"><i class="fa-solid fa-tags"></i></span>
-                <input type="text" class="form-control" aria-label="User ID" aria-describedby="donationID" disabled value="${donation.donationID}" />
+                <input type="text" name="donationID" class="form-control" aria-label="Donation ID" aria-describedby="donationID" readonly value="${donation.donationID}" />
               </div>
               <input type="hidden" id="donorID" value="${donation.donorID}">
 
@@ -84,9 +85,10 @@
               <div class="input-group mb-3">
                 <span class="input-group-text" id="donationCamp"><i class="fa-solid fa-hospital"></i> </span>
                 <select class="form-select" name="donationCamp" aria-label="Donation Camp" aria-describedby="donationCamp">
-                  <option selected disabled> ${donation.camp} </option>
+                  <option selected value="${donation.camp}"> ${donation.donationCampName}</option>
+
                   <c:forEach var="donationCamp" items="${donationCamps}">
-                    <option value="<c:out value="${donationCamp.campID}"/> "> <c:out value="${donationCamp.campName}"/></option>
+                    <option value="<c:out value="${donationCamp.campID}"/>"> <c:out value="${donationCamp.campName}"/></option>
                   </c:forEach>
                 </select>
               </div>
