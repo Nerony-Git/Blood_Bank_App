@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
+import java.io.Reader;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -23,7 +24,8 @@ import java.util.List;
         "/admin_password_change", "/admin_password", "/admin_logout", "/users", "/view_donor",
         "/edit_donor", "/update_donor", "/view_donation", "/view_donations", "/edit_donation",
         "/update_donation", "/view_requests", "/view_request", "/edit_request", "/view_new_requests",
-        "/update_request"
+        "/update_request", "/view_camps", "/new_camp", "/add_camp", "/view_camp", "/edit_camp",
+        "/update_camp"
 })
 public class AdminController extends HttpServlet {
 
@@ -128,6 +130,24 @@ public class AdminController extends HttpServlet {
                     break;
                 case "/update_request":
                     updateRequest(request, response);
+                    break;
+                case "/view_camps":
+                    viewDonationCamps(request, response);
+                    break;
+                case "/new_camp":
+                    newDonationCamp(request, response);
+                    break;
+                case "/add_camp":
+                    addNewDonationCamp(request, response);
+                    break;
+                case "/view_camp":
+                    viewDonationCamp(request, response);
+                    break;
+                case "/edit_camp":
+                    editDonationCamp(request, response);
+                    break;
+                case "/update_camp":
+                    updateDonationCamp(request, response);
                     break;
                 default:
                     RequestDispatcher dispatcher = request.getRequestDispatcher("pages/admin/login.jsp");
@@ -364,10 +384,10 @@ public class AdminController extends HttpServlet {
             User updatedUserObject = userDao.getDonorByID(donorID);
             session.setAttribute("successMsg", "Profile details updated successfully.");
             session.setAttribute("user", updatedUserObject);
-            response.sendRedirect("view_donor");
+            response.sendRedirect("view_donor?id=" + donorID);
         } else {
-            session.setAttribute("errorMsg", "Fialed to update profile details. Try again!");
-            response.sendRedirect("edit_donor");
+            session.setAttribute("errorMsg", "Failed to update profile details. Try again!");
+            response.sendRedirect("edit_donor?id=" + donorID);
         }
 
     }
@@ -413,10 +433,10 @@ public class AdminController extends HttpServlet {
 
         if (u) {
             session.setAttribute("successMsg", "Donation details updated successfully");
-            response.sendRedirect("view_donations");
+            response.sendRedirect("view_donation?id=" + donationID);
         } else {
             session.setAttribute("errorMsg", "Failed to update donation details.");
-            response.sendRedirect("edit_donation");
+            response.sendRedirect("edit_donation?id=" + donationID);
         }
 
     }
@@ -433,6 +453,11 @@ public class AdminController extends HttpServlet {
 
         BloodRequest bloodRequest = bloodRequestDao.getRequestByID(requestID);
         request.setAttribute("bloodRequest", bloodRequest);
+
+        String donorID = bloodRequest.getDonorID();
+        User user = userDao.getDonorByID(donorID);
+        request.setAttribute("user", user);
+
         RequestDispatcher dispatcher = request.getRequestDispatcher("pages/admin/view_request.jsp");
         dispatcher.forward(request, response);
     }
@@ -465,22 +490,108 @@ public class AdminController extends HttpServlet {
 
     private void updateRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
         String bloodGroup = request.getParameter("bloodGroup");
-        LocalDate requestDate = LocalDate.parse(request.getParameter("requestDate"));
+        LocalDate requestDate = LocalDate.parse(request.getParameter("requestDate"), df);
         String status = request.getParameter("status");
         String requestResponse = request.getParameter("requestResponse");
         String requestID = request.getParameter("requestID");
 
-        BloodRequest bloodRequest = new BloodRequest(requestID, requestResponse, bloodGroup, requestDate, requestID, status);
+        BloodRequest bloodRequest = new BloodRequest(requestID, bloodGroup, requestDate, status, requestResponse);
+        System.out.println(bloodRequest.getRequestID());
         boolean u = bloodRequestDao.updateRequest(bloodRequest);
         HttpSession session = request.getSession();
 
         if (u) {
             session.setAttribute("successMsg", "Request details updated successfully.");
-            response.sendRedirect("view_requests");
+            response.sendRedirect("view_request?id=" + requestID);
         } else {
             session.setAttribute("errorMsg", "Failed to update request details.");
-            response.sendRedirect("edit_request");
+            response.sendRedirect("edit_request?id=" + requestID);
         }
 
     }
+
+    private void viewDonationCamps(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+        List<DonationCamp> donationCamps = donationCampDao.getAllCamps();
+        request.setAttribute("donationCamps",donationCamps);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("pages/admin/view_camps.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void newDonationCamp(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RequestDispatcher dispatcher = request.getRequestDispatcher("pages/admin/new_camp.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void addNewDonationCamp(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+        String campName = request.getParameter("donationCampName");
+        String organizers = request.getParameter("organizers");
+        String address = request.getParameter("address");
+        String postalAddress = request.getParameter("postalAddress");
+        String details = request.getParameter("details");
+
+        HttpSession session = request.getSession();
+
+        DonationCamp newDonationCamp = new DonationCamp();
+        newDonationCamp.setCampName(campName);
+        newDonationCamp.setOrganizers(organizers);
+        newDonationCamp.setAddress(address);
+        newDonationCamp.setPostal_address(postalAddress);
+        newDonationCamp.setDetails(details);
+
+        try {
+            boolean u = donationCampDao.newCamp(newDonationCamp);
+
+            if (u) {
+                session.setAttribute("successMsg", "New donation camp added successfully");
+                response.sendRedirect("view_camps");
+            } else {
+                session.setAttribute("errorMsg", "Failed to add new donation camp. Try again.");
+                response.sendRedirect("new_camp");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void viewDonationCamp(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+        String donationCampID = request.getParameter("id");
+
+        DonationCamp donationCamp = donationCampDao.getDonationCampByID(donationCampID);
+        request.setAttribute("donationCamp", donationCamp);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("pages/admin/view_camp.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void editDonationCamp(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+        String donationCampID = request.getParameter("id");
+
+        DonationCamp donationCamp = donationCampDao.getDonationCampByID(donationCampID);
+        request.setAttribute("donationCamp", donationCamp);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("pages/admin/edit_camp.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void updateDonationCamp(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+        String donationCampID = request.getParameter("donationCampID");
+        String donationCampName = request.getParameter("donationCampName");
+        String organizers = request.getParameter("organizers");
+        String address = request.getParameter("address");
+        String postalAddress = request.getParameter("postalAddress");
+        String details = request.getParameter("details");
+
+        DonationCamp updatedDonationCamp = new DonationCamp(donationCampID, donationCampName, organizers, address, postalAddress, details);
+        boolean u = donationCampDao.updateDonationCamp(updatedDonationCamp);
+
+
+        HttpSession session = request.getSession();
+
+        if (u) {
+            session.setAttribute("successMsg", "Donation camp details updated successfully.");
+            response.sendRedirect("view_camp?id=" + donationCampID);
+        } else {
+            session.setAttribute("errorMsg", "Failed to update donation camp details. Try Again!");
+            response.sendRedirect("edit_camp?id=" + donationCampID);
+        }
+    }
+
 }
