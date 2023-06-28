@@ -75,7 +75,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <c:forEach var="donorRequest" items="${allDonorRequests}">
+                    <c:forEach var="donorRequest" items="${allBloodRequests}">
                         <tr>
                             <td><c:out value="${donorRequest.requestID}"/></td>
                             <td><c:out value="${donorRequest.donorID}"/></td>
@@ -96,7 +96,7 @@
                             </td>
                             <td style="text-align: center">
                                 <div class="btn-group">
-                                    <a href="view_donor_request?id=<c:out value="${donorRequest.requestID}"/>" class="btn btn-sm btn-primary"><i class="fa-solid fa-eye"></i>  View </a> &nbsp;
+                                    <a href="view_request?id=<c:out value="${donorRequest.requestID}"/>" class="btn btn-sm btn-primary"><i class="fa-solid fa-eye"></i>  View </a> &nbsp;
                                     <%--<a href="edit_donor?id=<c:out value="${request.requestID}"/>" class="btn btn-sm btn-warning"><i class="fa-solid fa-user-pen"></i>  Edit </a> &nbsp;
                                     <a href="" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash-can"></i>  Delete </a>--%>
                                 </div>
