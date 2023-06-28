@@ -21,6 +21,7 @@ public class BloodDonationDao {
 
 
     private UserDao userDao = new UserDao();
+    private DonationCampDao donationCampDao = new DonationCampDao();
 
     public String getLastDonationID() throws SQLException {
         String lastDonationID = null;
@@ -77,11 +78,12 @@ public class BloodDonationDao {
                 String donorID = resultSet.getString("donor_id");
                 donorID = userDao.getDonorsName(donorID);
                 String donationCamp = resultSet.getString("camp");
+                String donationCampName = donationCampDao.getCampName(donationCamp);
                 LocalDate donationDate = resultSet.getDate("donation_date").toLocalDate();
                 int bloodUnits = resultSet.getInt("blood_units");
                 String comment = resultSet.getString("comments");
 
-                donorBloodDonations.add(new BloodDonation(donationID, donorID, donationCamp, donationDate, bloodUnits, comment));
+                donorBloodDonations.add(new BloodDonation(donationID, donorID, donationCamp, donationCampName, donationDate, bloodUnits, comment));
             }
         }
         return donorBloodDonations;
@@ -102,6 +104,7 @@ public class BloodDonationDao {
                 bloodDonation.setDonationID(resultSet.getString("donation_id"));
                 bloodDonation.setDonorID(resultSet.getString("donor_id"));
                 bloodDonation.setCamp(resultSet.getString("camp"));
+                bloodDonation.setDonationCampName(donationCampDao.getCampName(resultSet.getString("camp")));
                 bloodDonation.setDonationDate(resultSet.getDate("donation_date").toLocalDate());
                 bloodDonation.setBloodUnit(resultSet.getInt("blood_units"));
                 bloodDonation.setComment(resultSet.getString("comments"));
@@ -124,11 +127,12 @@ public class BloodDonationDao {
                 String donorID = resultSet.getString("donor_id");
                 donorID = userDao.getDonorsName(donorID);
                 String donationCamp = resultSet.getString("camp");
+                String donationCampName = donationCampDao.getCampName(donationCamp);
                 LocalDate donationDate = resultSet.getDate("donation_date").toLocalDate();
                 int bloodUnits = resultSet.getInt("blood_units");
                 String comment = resultSet.getString("comments");
 
-                bloodDonations.add(new BloodDonation(donationID, donorID, donationCamp, donationDate, bloodUnits, comment));
+                bloodDonations.add(new BloodDonation(donationID, donorID, donationCamp, donationCampName, donationDate, bloodUnits, comment));
             }
         }
         return bloodDonations;
