@@ -59,14 +59,14 @@
             </div>
 
             <div class="col-md-4">
-                <a href="">
+                <a href="<%=request.getContextPath()%>/view_new_requests">
                     <div class="card bg_border">
                         <div class="card-body text-center">
                             <br/>
                             <i class="fa-solid fa-hand-holding-heart fa-3x"></i>
                             <br/>
                             <br/>
-                            <p class="fs-4 text-center">View <br/> Requests</p>
+                            <p class="fs-4 text-center">New <br/> Requests</p>
                         </div>
                     </div>
                 </a>
@@ -77,21 +77,21 @@
         <div class="row dash">
 
             <div class="col-md-4">
-                <a href="">
+                <a href="<%=request.getContextPath()%>/view_requests">
                     <div class="card bg_border">
                         <div class="card-body text-center">
                             <br/>
-                            <i class="fa-solid fa-dna fa-3x"></i>
+                            <i class="fa-solid fa-hands-holding-circle fa-3x"></i>
                             <br/>
                             <br/>
-                            <p class="fs-4 text-center">Blood <br/> Groups</p>
+                            <p class="fs-4 text-center">View <br/> Requests</p>
                         </div>
                     </div>
                 </a>
             </div>
 
             <div class="col-md-4">
-                <a href="">
+                <a href="<%=request.getContextPath()%>/view_camps">
                     <div class="card bg_border">
                         <div class="card-body text-center">
                             <br/>
