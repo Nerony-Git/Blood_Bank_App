@@ -85,7 +85,7 @@
                 <select class="form-select" name="donationCamp" aria-label="Donation Camp" aria-describedby="donationCamp">
                   <option selected disabled> --- Select Donation Camp --- </option>
                   <c:forEach var="donationCamp" items="${donationCamps}">
-                    <option value="<c:out value="${donationCamp.campID}"/> "> <c:out value="${donationCamp.campName}"/></option>
+                    <option value="<c:out value="${donationCamp.campID}"/>"> <c:out value="${donationCamp.campName}"/></option>
                   </c:forEach>
                 </select>
               </div>
