@@ -78,19 +78,19 @@
                             <label class="form-label"> Request ID</label>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="requestID"><i class="fa-solid fa-tags"></i></span>
-                                <input type="text" name="requestID" class="form-control" aria-label="Request ID" aria-describedby="requestID" disabled value="${bloodRequest.requestID}" />
+                                <input type="text" name="requestID" class="form-control" aria-label="Request ID" aria-describedby="requestID" readonly value="${bloodRequest.requestID}" />
                             </div>
 
                             <label class="form-label">Blood Group</label>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="bloodGroup"><i class="fa-solid fa-staff-snake"></i> </span>
-                                <input type="text" name="bloodGroup" class="form-control" aria-label="Blood Group" aria-describedby="bloodGroup" disabled value="${bloodRequest.bloodGroup}">
+                                <input type="text" name="bloodGroup" class="form-control" aria-label="Blood Group" aria-describedby="bloodGroup" readonly value="${bloodRequest.bloodGroup}">
                             </div>
 
                             <label class="form-label">Request Date</label>
                             <div class="input-group mb-3">
                                 <span class="input-group-text" id="requestDate"><i class="fa-solid fa-calendar"></i> </span>
-                                <input type="date" name="requestDate" class="form-control" aria-label="Request Date" aria-describedby="requestDate" disabled value="${bloodRequest.requestDate}">
+                                <input type="date" name="requestDate" class="form-control" aria-label="Request Date" aria-describedby="requestDate" readonly value="${bloodRequest.requestDate}">
                             </div>
 
                             <label class="form-label">Comments</label>
@@ -164,9 +164,15 @@
                         <label class="form-label">Response</label>
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="requestResponse"><i class="fa-solid fa-comment-dots"></i> </span>
-                            <textarea name="requestResponse" class="form-control" rows="4" aria-label="Response" aria-describedby="requestResponse" disabled>${bloodRequest.response}</textarea>
+                            <textarea name="requestResponse" class="form-control" rows="4" aria-label="Response" aria-describedby="requestResponse" required>${bloodRequest.response}</textarea>
 
                         </div>
+                          <br/>
+                          <div class="input-group justify" style="justify-content: center;">
+                              <button type="submit" class="bg_btn">&nbsp;<i class="fa-solid fa-upload"></i> &nbsp; Update Request &nbsp;</button>
+                          </div>
+                          <br/>
+                          <br/>
                       </div>
                     </form>
                     <!-- End Form-->    
