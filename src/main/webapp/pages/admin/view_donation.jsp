@@ -81,7 +81,7 @@
             <label class="form-label"> Donation Camp</label>
             <div class="input-group mb-3">
               <span class="input-group-text" id="donationCamp"><i class="fa-solid fa-hospital"></i> </span>
-              <input type="text" class="form-control" aria-label="Donation Camp" aria-describedby="donationCamp" disabled value="${donation.camp}">
+              <input type="text" class="form-control" aria-label="Donation Camp" aria-describedby="donationCamp" disabled value="${donation.donationCampName}">
             </div>
 
             <label class="form-label">Donation Date</label>
@@ -93,7 +93,7 @@
             <label class="form-label">Units Donated</label>
             <div class="input-group mb-3">
               <span class="input-group-text" id="units"><i class="fa-solid fa-droplet"></i> </span>
-              <input type="number" name="bloodUnit" class="form-control" aria-label="Units Donated" aria-describedby="units" disabled value="${donation.bloodUnit}">
+              <input type="text" name="bloodUnit" class="form-control" aria-label="Units Donated" aria-describedby="units" disabled value="${donation.bloodUnit}">
             </div>
 
             <label class="form-label">Comments</label>
