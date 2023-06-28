@@ -6,6 +6,7 @@ public class BloodDonation {
     private String donationID;
     private String donorID;
     private String camp;
+    private String donationCampName;
     private LocalDate donationDate;
     private Integer bloodUnit;
     private String comment;
@@ -31,6 +32,17 @@ public class BloodDonation {
         this.camp = donationCamp;
         this.donationDate = donationDate;
         this.bloodUnit = bloodUnit;
+    }
+
+    public BloodDonation(String donationID, String donorID, String donationCamp, String donationCampName, LocalDate donationDate, int bloodUnits, String comment) {
+        super();
+        this.donationID = donationID;
+        this.donorID = donorID;
+        this.camp = donationCamp;
+        this.donationCampName = donationCampName;
+        this.donationDate = donationDate;
+        this.bloodUnit = bloodUnits;
+        this.comment = comment;
     }
 
     public String getDonationID() {
@@ -79,5 +91,13 @@ public class BloodDonation {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public String getDonationCampName() {
+        return donationCampName;
+    }
+
+    public void setDonationCampName(String donationCampName) {
+        this.donationCampName = donationCampName;
     }
 }
