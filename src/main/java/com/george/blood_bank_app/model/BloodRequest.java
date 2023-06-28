@@ -25,6 +25,15 @@ public class BloodRequest {
         this.status = status;
     }
 
+    public BloodRequest(String requestID, String bloodGroup, LocalDate requestDate, String status, String requestResponse) {
+        super();
+        this.requestID = requestID;
+        this.bloodGroup = bloodGroup;
+        this.requestDate = requestDate;
+        this.status = status;
+        this.response = requestResponse;
+    }
+
     public String getRequestID() {
         return requestID;
     }
