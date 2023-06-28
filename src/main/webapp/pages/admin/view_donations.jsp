@@ -79,13 +79,13 @@
               <tr>
                 <td><c:out value="${donation.donationID}"/></td>
                 <td><c:out value="${donation.donorID}"/></td>
-                <td style="text-align: center"><c:out value="${donation.camp}"/></td>
+                <td style="text-align: center"><c:out value="${donation.donationCampName}"/></td>
                 <td style="text-align: center"><c:out value="${donation.donationDate}"/></td>
                 <td style="text-align: center">
                   <div class="btn-group">
                     <a href="view_donation?id=<c:out value="${donation.donationID}"/>" class="btn btn-sm btn-primary"><i class="fa-solid fa-eye"></i>  View </a> &nbsp;
-                      <a href="edit_donation?id=<c:out value="${donation.donationID}"/>" class="btn btn-sm btn-warning"><i class="fa-solid fa-user-pen"></i>  Edit </a> &nbsp;
-                      <a href="" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash-can"></i>  Delete </a>
+                    <a href="edit_donation?id=<c:out value="${donation.donationID}"/>" class="btn btn-sm btn-warning"><i class="fa-solid fa-user-pen"></i>  Edit </a> &nbsp;
+                      <%--<a href="" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash-can"></i>  Delete </a>--%>
                   </div>
                 </td>
               </tr>
