@@ -50,7 +50,7 @@
         <div class="col-md-8 offset-md-2">
             <div class="card bg_border">
                 <div class="card-header text-center">
-                    <img src="assets/img/web/view_request.png" alt="Request blood title">
+                    <img class="bg_img" src="assets/img/admin/blood_request_details.png" alt="Blood request details title">
                     <%--<p class="fs-4 text-center text-white mt-2">
                         <i class="fa-solid fa-user"></i>   Request Blood
                     </p>--%>
