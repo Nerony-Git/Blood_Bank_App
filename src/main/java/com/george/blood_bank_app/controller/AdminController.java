@@ -25,7 +25,7 @@ import java.util.List;
         "/edit_donor", "/update_donor", "/view_donation", "/view_donations", "/edit_donation",
         "/update_donation", "/view_requests", "/view_request", "/edit_request", "/view_new_requests",
         "/update_request", "/view_camps", "/new_camp", "/add_camp", "/view_camp", "/edit_camp",
-        "/update_camp", "/delete_camp", "/delete_user"
+        "/update_camp", "/delete_camp", "/delete_user", "/new_donor", "/add_donor"
 })
 public class AdminController extends HttpServlet {
 
@@ -154,6 +154,12 @@ public class AdminController extends HttpServlet {
                     break;
                 case "/delete_user":
                     deleteDonorByID(request, response);
+                    break;
+                case "/new_donor":
+                    addNewDonorByAdmin(request, response);
+                    break;
+                case "/add_donor":
+                    newDonorByAdmin(request, response);
                     break;
                 default:
                     RequestDispatcher dispatcher = request.getRequestDispatcher("pages/admin/login.jsp");
@@ -635,6 +641,58 @@ public class AdminController extends HttpServlet {
         } else {
             session.setAttribute("errorMsg", "Failed to delete donor. Try again!");
             response.sendRedirect("users");
+        }
+    }
+
+    private void addNewDonorByAdmin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        List<BloodGroup> bloodGroups = bloodGroupDao.getAllBloodGroups();
+        request.setAttribute("bloodGroups", bloodGroups);
+        RequestDispatcher dispatcher = request.getRequestDispatcher("pages/admin/new_donor.jsp");
+        dispatcher.forward(request, response);
+    }
+
+    private void newDonorByAdmin(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+        String otherName = request.getParameter("otherName");
+        String username = request.getParameter("username");
+        String gender = request.getParameter("gender");
+        LocalDate dob = LocalDate.parse(request.getParameter("dob"), df);
+        String contact = request.getParameter("contact");
+        String email = request.getParameter("email");
+        String address = request.getParameter("address");
+        String postalAddress = request.getParameter("postalAddress");
+        String bloodGroup = request.getParameter("bloodGroup");
+        String password = "12345";
+
+        HttpSession session = request.getSession();
+
+        User newUser = new User();
+        newUser.setFirstName(firstName);
+        newUser.setLastName(lastName);
+        newUser.setOtherName(otherName);
+        newUser.setUsername(username);
+        newUser.setGender(gender);
+        newUser.setDob(dob);
+        newUser.setContact(contact);
+        newUser.setEmail(email);
+        newUser.setAddress(address);
+        newUser.setPostalAddress(postalAddress);
+        newUser.setBloodGroup(bloodGroup);
+        newUser.setPassword(password);
+
+        try {
+            boolean u = userDao.registerDonor(newUser);
+
+            if (u) {
+                session.setAttribute("successMsg", "Donor added successfully.");
+                response.sendRedirect("users");
+            } else {
+                session.setAttribute("errorMsg", "Failed to add donor. Try again!");
+                response.sendRedirect("new_donor");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
