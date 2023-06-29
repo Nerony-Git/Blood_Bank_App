@@ -49,10 +49,11 @@
         <div class="row">
             <div class="col-md-8 offset-md-2">
                 <div class="card bg_border">
-                    <div class="card-header text-center text-white bg_color">
-                        <p class="fs-4 text-center text-white mt-2">
-                            <i class="fa-solid fa-user-pen"></i>  Edit Donor Profile Details
-                        </p>
+                    <div class="card-header text-center">
+                        <img class="bg_img" src="assets/img/admin/edit_donor_details.png" alt="Edit donor details title">
+                        <%--<p class="fs-4 text-center text-white mt-2">
+                          <i class="fa-solid fa-user"></i>   Blood Donated
+                        </p>--%>
                     </div>
                     <div class="card-body">
                         <!-- Success Message -->
@@ -161,7 +162,10 @@
                                     <br/>
 
                                 </div>
-                                <button type="submit" class="bg_btn"><i class="fa-solid fa-user-gear"></i>   Update Donor Profile </button>
+                                <div class="input-group justify" style="justify-content: center;">
+                                    <button type="submit" class="bg_btn">&nbsp; &nbsp;<i class="fa-solid fa-user-gear"></i>   Update Donor Profile &nbsp; &nbsp;</button>
+                                </div>
+
                             </div>
                         </form>
                         <!-- End Form -->
