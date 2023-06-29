@@ -21,7 +21,7 @@ public class UserDao {
     private static final String ADD_NEW_DONOR_SQL = "INSERT INTO donors (donor_id, first_name, last_name, other_name, username, gender, dob, contact, email, address, postal_address, blood_group, password) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String VALIDATE_OLD_PASSWORD_SQL = "SELECT * FROM donors WHERE donor_id = ? AND password = ?";
     private static final String CHANGE_PASSWORD_SQL = "UPDATE donors SET password = ? WHERE donor_id = ?";
-    private static final String GET_ALL_DONORS_SQL = "SELECT * FROM donors ORDER BY donor_id ASC";
+    private static final String GET_ALL_DONORS_SQL = "SELECT * FROM donors WHERE deleted IS NULL ORDER BY donor_id ASC";
     private static final String GET_DONOR_NAME_SQL = "SELECT first_name, last_name, other_name FROM donors WHERE donor_id = ?";
     private static final String DELETE_DONOR_BY_ID_SQL = "UPDATE donors SET deleted = ? WHERE donor_id = ?";
 
