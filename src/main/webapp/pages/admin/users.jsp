@@ -55,6 +55,12 @@
         </div>
 
         <div class="card-body">
+
+          <div class="input-group justify mb-3" style="justify-content: end;">
+            <%--<button type="submit" class="bg_btn">&nbsp;<i class="fa-solid fa-tent"></i> &nbsp; Add New Donation Camp &nbsp;</button>--%>
+            <a class="btn btn_sm bg_btn" style="color: cornsilk" href="<%=request.getContextPath()%>/new_donor">&nbsp; <i class="fa-solid fa-user-plus"></i> &nbsp; Add New Donor &nbsp;</a>
+          </div>
+
           <c:if test="${not empty successMsg}">
             <p class="text-center text-success fs-5">${successMsg}</p>
             <c:remove var="successMsg" scope="session" />
