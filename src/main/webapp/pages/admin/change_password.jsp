@@ -48,10 +48,8 @@
     <div class="row">
       <div class="col-md-6 offset-md-3">
         <div class="card bg_border">
-          <div class="card-header text-center text-white bg_color">
-            <p class="fs-4 text-center text-white mt-2">
-              <i class="fa-solid fa-user-pen"></i>  Change Password
-            </p>
+          <div class="card-header text-center">
+            <img class="bg_img" src="assets/img/admin/change_password.png" alt="Change password title.">
           </div>
 
           <div class="card-body">
@@ -96,7 +94,10 @@
               <br/>
               <br/>
 
-              <button type="submit" class="btn bg_color text-white col-md-12"><i class="fa-solid fa-user-gear"></i> &nbsp; Update Password </button>
+              <div class="input-group justify" style="justify-content: center;">
+                <button type="submit" class="bg_btn">&nbsp; &nbsp;<i class="fa-solid fa-user-gear"></i> &nbsp; Update Password &nbsp; &nbsp;</button>
+              </div>
+
               <br/>
               <br/>
             </form>
