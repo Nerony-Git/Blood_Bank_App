@@ -27,8 +27,8 @@
     <div class="row">
       <div class="col-md-6 offset-md-3">
         <div class="card bg_border">
-          <div class="card-header text-center text-white">
-            <img src="assets/img/web/admin_login.png" class="text-center" alt="Donor Login">
+          <div class="card-header text-center">
+            <img src="assets/img/web/admin_login.png" class="bg_img" alt="Donor Login">
             <%--<p class="fs-4 text-center text-white mt-2">
                 <i class="fa fa-group"></i> &nbsp;
                 Users Login
@@ -67,8 +67,12 @@
                       <input type="password" name="password" id="password" class="form-control" placeholder="Enter Password" aria-label="Password" aria-describedby="pass" required />
                       <i class=" view_password input-group-text bi bi-eye-slash" id="togglePassword" onclick="showPassword('password', 'togglePassword')"></i>
                     </div>
+                    <br/>
 
-                    <button type="submit" class="btn bg_color text-white col-md-12"><i class="fa-solid fa-right-to-bracket"></i> &nbsp; Login </button>
+                    <div class="input-group justify" style="justify-content: center;">
+                      <button type="submit" class="bg_btn">&nbsp; &nbsp;<i class="fa-solid fa-right-to-bracket"></i> &nbsp; Login &nbsp; &nbsp;</button>
+                    </div>
+
                   </form>
                   <!-- End Form -->
                 </div>
