@@ -49,10 +49,11 @@
         <div class="row">
             <div class="col-md-8 offset-md-2">
                 <div class="card bg_border">
-                    <div class="card-header text-center text-white bg_color">
-                        <p class="fs-4 text-center text-white mt-2">
-                            <i class="fa-solid fa-users-viewfinder"></i>  View Donor Details
-                        </p>
+                    <div class="card-header text-center">
+                        <img class="bg_img" src="assets/img/admin/view_donor_details.png" alt="View donor details title">
+                        <%--<p class="fs-4 text-center text-white mt-2">
+                          <i class="fa-solid fa-user"></i>   Blood Donated
+                        </p>--%>
                     </div>
                     <div class="card-body">
                         <!-- Success Message -->
