@@ -48,7 +48,7 @@
         <div class="row">
             <div class="card bg_border">
                 <div class="card-header text-center">
-                    <img src="assets/img/web/view_donations.png" alt="View donations title.">
+                    <img class="bg_img" src="assets/img/admin/donation_camps.png" alt="Donation camps title.">
                 </div>
 
                 <div class="card-body">
