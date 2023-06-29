@@ -7,6 +7,7 @@ public class DonationCamp {
     private String address;
     private String postal_address;
     private String details;
+    private String deleted;
 
 
     public DonationCamp() {
@@ -69,5 +70,13 @@ public class DonationCamp {
 
     public void setDetails(String details) {
         this.details = details;
+    }
+
+    public String getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(String deleted) {
+        this.deleted = deleted;
     }
 }
