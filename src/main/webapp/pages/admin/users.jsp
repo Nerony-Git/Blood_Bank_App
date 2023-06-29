@@ -47,8 +47,14 @@
   <div class="container p-5">
     <div class="row">
       <div class="card bg_border">
+        <div class="card-header text-center">
+          <img class="bg_img" src="assets/img/admin/list_of_donors.png" alt="List of donors title">
+          <%--<p class="fs-4 text-center text-white mt-2">
+            <i class="fa-solid fa-user"></i>   Blood Donated
+          </p>--%>
+        </div>
+
         <div class="card-body">
-          <p class="fw-bold text-center text-primary fs-4">  List of All Donors. </p>
           <c:if test="${not empty successMsg}">
             <p class="text-center text-success fs-5">${successMsg}</p>
             <c:remove var="successMsg" scope="session" />
