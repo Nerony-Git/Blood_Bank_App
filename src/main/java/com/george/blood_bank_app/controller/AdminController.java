@@ -25,7 +25,7 @@ import java.util.List;
         "/edit_donor", "/update_donor", "/view_donation", "/view_donations", "/edit_donation",
         "/update_donation", "/view_requests", "/view_request", "/edit_request", "/view_new_requests",
         "/update_request", "/view_camps", "/new_camp", "/add_camp", "/view_camp", "/edit_camp",
-        "/update_camp"
+        "/update_camp", "/delete_camp", "/delete_user"
 })
 public class AdminController extends HttpServlet {
 
@@ -148,6 +148,12 @@ public class AdminController extends HttpServlet {
                     break;
                 case "/update_camp":
                     updateDonationCamp(request, response);
+                    break;
+                case "/delete_camp":
+                    deleteDonationCamp(request, response);
+                    break;
+                case "/delete_user":
+                    deleteDonorByID(request, response);
                     break;
                 default:
                     RequestDispatcher dispatcher = request.getRequestDispatcher("pages/admin/login.jsp");
@@ -599,6 +605,36 @@ public class AdminController extends HttpServlet {
         } else {
             session.setAttribute("errorMsg", "Failed to update donation camp details. Try Again!");
             response.sendRedirect("edit_camp?id=" + donationCampID);
+        }
+    }
+
+    private void deleteDonationCamp(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+        String campID = request.getParameter("id");
+        boolean u = donationCampDao.deleteDonationCamp(campID);
+
+        HttpSession session = request.getSession();
+
+        if (u) {
+            session.setAttribute("successMsg", "Donation camp deleted successfully.");
+            response.sendRedirect("view_camps");
+        } else {
+            session.setAttribute("errorMsg", "Failed to delete donation camp. Try again!");
+            response.sendRedirect("view_camps");
+        }
+    }
+
+    private void deleteDonorByID(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SQLException {
+        String donorID = request.getParameter("id");
+        boolean u = userDao.deleteDonorByID(donorID);
+
+        HttpSession session = request.getSession();
+
+        if (u) {
+            session.setAttribute("successMsg", "Donor deleted successfully.");
+            response.sendRedirect("users");
+        } else {
+            session.setAttribute("errorMsg", "Failed to delete donor. Try again!");
+            response.sendRedirect("users");
         }
     }
 
