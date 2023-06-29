@@ -12,19 +12,22 @@ import java.util.List;
 
 public class DonationCampDao {
 
-    private static final String GET_ALL_CAMPS_SQL = "SELECT * FROM donation_camp ORDER BY camp_name ASC";
+    private static final String GET_ALL_CAMPS_SQL = "SELECT * FROM donation_camp WHERE deleted = ? ORDER BY camp_name ASC";
     private static final String GET_CAMP_NAME_SQL = "SELECT camp_name FROM donation_camp WHERE camp_id = ?";
     private static final String INSERT_CAMP_SQL = "INSERT INTO donation_camp (camp_id, camp_name, organizers, address, postal_address, details) VALUES (?, ?, ?, ?, ?, ?)";
     private static final String GET_LAST_CAMP_ID_SQL = "SELECT camp_id FROM donation_camp ORDER BY camp_id DESC LIMIT 1";
     private static final String GET_CAMP_BY_ID_SQL = "SELECT * FROM donation_camp WHERE camp_id = ?";
     private static final String UPDATE_CAMP_SQL = "UPDATE donation_camp SET camp_name = ?, organizers = ?, address = ?, postal_address = ?, details = ? WHERE camp_id = ?";
+    private static final String DELETE_CAMP_BY_ID_SQL = "UPDATE donation_camp SET deleted = ? WHERE camp_id = ?";
 
 
     public List<DonationCamp> getAllCamps() throws SQLException {
         List<DonationCamp> donationCamps = new ArrayList<>();
+        String status = "";
 
         try (Connection connection = JDBCUtils.getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_CAMPS_SQL)){
+            preparedStatement.setString(1, status);
 
             ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -134,6 +137,20 @@ public class DonationCampDao {
             preparedStatement.setString(4, donationCamp.getPostal_address());
             preparedStatement.setString(5, donationCamp.getDetails());
             preparedStatement.setString(6, donationCamp.getCampID());
+
+            u = preparedStatement.executeUpdate() > 0;
+        }
+        return u;
+    }
+
+    public boolean deleteDonationCamp(String campID) throws SQLException {
+        boolean u;
+        String status = "Yes";
+
+        try (Connection connection = JDBCUtils.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(DELETE_CAMP_BY_ID_SQL)){
+            preparedStatement.setString(1, status);
+            preparedStatement.setString(2, campID);
 
             u = preparedStatement.executeUpdate() > 0;
         }
