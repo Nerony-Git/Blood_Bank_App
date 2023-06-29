@@ -86,7 +86,7 @@
                   <div class="btn-group">
                     <a href="view_donor?id=<c:out value="${donor.donorID}"/>" class="btn btn-sm btn-primary"><i class="fa-solid fa-eye"></i>  View </a> &nbsp;
                     <a href="edit_donor?id=<c:out value="${donor.donorID}"/>" class="btn btn-sm btn-warning"><i class="fa-solid fa-user-pen"></i>  Edit </a> &nbsp;
-                    <a href="" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash-can"></i>  Delete </a>
+                    <a href="delete_user?id=<c:out value="${donor.donorID}"/>" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash-can"></i>  Delete </a>
                   </div>
                 </td>
               </tr>
