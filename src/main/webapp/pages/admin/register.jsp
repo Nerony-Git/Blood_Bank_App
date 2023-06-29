@@ -30,10 +30,8 @@
         <div class="row">
             <div class="col-md-8 offset-md-2">
                 <div class="card bg_border mb-5">
-                    <div class="card-header text-center text-white bg_color">
-                        <p class="fs-4 text-center text-white mt-2">
-                            <i class="fa-solid fa-universal-access"></i>  Admin Registration
-                        </p>
+                    <div class="card-header text-center">
+                        <img class="bg_img" src="assets/img/admin/admin_registration.png" alt="Admin registration title.">
                     </div>
                     <div class="card-body">
                         <!-- Success Message -->
@@ -149,7 +147,12 @@
                                     <br/>
 
                                 </div>
-                                <button type="submit" class="btn bg_color text-white"><i class="fa-solid fa-user-plus"></i>   Add New Admin </button>
+                                <br/>
+                                <br/>
+                                <div class="input-group justify" style="justify-content: center;">
+                                    <button type="submit" class="bg_btn">&nbsp; &nbsp;<i class="fa-solid fa-user-plus"></i> &nbsp; Add New Admin &nbsp; &nbsp;</button>
+                                </div>
+
                                 <br/>
 
                             </div>
