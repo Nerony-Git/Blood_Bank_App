@@ -48,10 +48,8 @@
         <div class="row">
             <div class="col-md-8 offset-md-2">
                 <div class="card bg_border">
-                    <div class="card-header text-center text-white bg_color">
-                        <p class="fs-4 text-center text-white mt-2">
-                            <i class="fa-solid fa-user-pen"></i>  Edit Profile Details
-                        </p>
+                    <div class="card-header text-center">
+                        <img class="bg_img" src="assets/img/admin/edit_profile_details.png" alt="Edit profile details title.">
                     </div>
                     <div class="card-body">
                         <!-- Success Message -->
@@ -122,7 +120,7 @@
                                     <div class="input-group mb-3">
                                         <span class="input-group-text" id="gender"><i class="fa-solid fa-venus-mars"></i> </span>
                                         <select name="gender" class="form-select" aria-label="Gender" aria-describedby="gender" required>
-                                            <option selected="selected" disabled="disabled">${admin.gender}</option>
+                                            <option selected="selected" value="${admin.gender}">${admin.gender}</option>
                                             <option value="F">F</option>
                                             <option value="M">M</option>
                                         </select>
@@ -150,7 +148,7 @@
                                     <div class="input-group mb-3">
                                         <span class="input-group-text" id="bloodGroup"><i class="fa-solid fa-staff-snake"></i> </span>
                                         <select name="bloodGroup" class="form-select" aria-label="Blood Group" aria-describedby="bloodGroup" required>
-                                            <option selected="selected" disabled="disabled"> ${admin.bloodGroup} </option>
+                                            <option selected="selected" value="${admin.bloodGroup}"> ${admin.bloodGroup} </option>
                                             <c:forEach var="bloodGroup" items="${bloodGroups}">
                                                 <option value="<c:out value="${bloodGroup.bloodGroupName}"/>"><c:out value="${bloodGroup.bloodGroupName}"/></option>
                                             </c:forEach>
@@ -160,7 +158,10 @@
                                     <br/>
 
                                 </div>
-                                <button type="submit" class="btn bg_color text-white"><i class="fa-solid fa-user-gear"></i>   Update Profile </button>
+                                <div class="input-group justify" style="justify-content: center;">
+                                    <button type="submit" class="bg_btn">&nbsp; &nbsp;<i class="fa-solid fa-user-gear"></i>   Update Profile &nbsp; &nbsp;</button>
+                                </div>
+
                             </div>
                         </form>
                         <!-- End Form -->
