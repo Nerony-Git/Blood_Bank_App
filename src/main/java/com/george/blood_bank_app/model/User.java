@@ -16,6 +16,7 @@ public class User {
     private String email;
     private String password;
     private String bloodGroup;
+    private String deleted;
 
     public User(){
         
@@ -156,5 +157,13 @@ public class User {
 
     public void setBloodGroup(String bloodGroup) {
         this.bloodGroup = bloodGroup;
+    }
+
+    public String getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(String deleted) {
+        this.deleted = deleted;
     }
 }
