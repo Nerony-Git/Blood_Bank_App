@@ -91,7 +91,7 @@
                                     <div class="btn-group">
                                         <a href="view_camp?id=<c:out value="${donationCamp.campID}"/>" class="btn btn-sm btn-primary"><i class="fa-solid fa-eye"></i>  View </a> &nbsp;
                                         <a href="edit_camp?id=<c:out value="${donationCamp.campID}"/>" class="btn btn-sm btn-warning"><i class="fa-solid fa-user-pen"></i>  Edit </a> &nbsp;
-                                        <a href="" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash-can"></i>  Delete </a>
+                                        <a href="delete_camp?id=<c:out value="${donationCamp.campID}"/>" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash-can"></i>  Delete </a>
                                     </div>
                                 </td>
                             </tr>
