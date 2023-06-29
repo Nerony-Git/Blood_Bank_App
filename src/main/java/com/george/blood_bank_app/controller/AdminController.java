@@ -208,18 +208,24 @@ public class AdminController extends HttpServlet {
 
         try {
             Admin admin = adminDao.validateAdmin(username, password);
-            String destPage = "/admin_login";
+            /*String destPage = "/admin_login";*/
             HttpSession session = request.getSession();
 
             if (admin != null) {
                 session.setAttribute("admin", admin);
-                destPage = "/admin_dashboard";
+                RequestDispatcher dispatcher = request.getRequestDispatcher("admin_dashboard");
+                dispatcher.forward(request, response);
+                session.removeAttribute("successMsg");
+                /*destPage = "/admin_dashboard";*/
             } else {
                 session.setAttribute("errorMsg", "Invalid username or password.");
+                RequestDispatcher dispatcher = request.getRequestDispatcher("admin_login");
+                dispatcher.forward(request, response);
+                session.removeAttribute("errorMsg");
             }
 
-            RequestDispatcher dispatcher = request.getRequestDispatcher(destPage);
-            dispatcher.forward(request, response);
+            /*RequestDispatcher dispatcher = request.getRequestDispatcher(destPage);
+            dispatcher.forward(request, response);*/
         } catch (SQLException e) {
             throw new ServletException();
         }
@@ -250,7 +256,7 @@ public class AdminController extends HttpServlet {
             session.setAttribute("admin", updatedAdminObject);
             response.sendRedirect("admin_profile");
         } else {
-            session.setAttribute("errorMsg", "Fialed to update profile details. Try again!");
+            session.setAttribute("errorMsg", "Failed to update profile details. Try again!");
             response.sendRedirect("admin_edit");
         }
 
@@ -385,9 +391,11 @@ public class AdminController extends HttpServlet {
             session.setAttribute("successMsg", "Profile details updated successfully.");
             session.setAttribute("user", updatedUserObject);
             response.sendRedirect("view_donor?id=" + donorID);
+            session.removeAttribute("successMsg");
         } else {
             session.setAttribute("errorMsg", "Failed to update profile details. Try again!");
             response.sendRedirect("edit_donor?id=" + donorID);
+            session.removeAttribute("errorMsg");
         }
 
     }
