@@ -48,7 +48,7 @@
     <div class="row">
       <div class="card bg_border">
         <div class="card-header text-center">
-          <img src="assets/img/web/view_requests.png" alt="View requests title.">
+          <img class="bg_img" src="assets/img/admin/new_blood_requests.png" alt="View new requests title.">
         </div>
 
         <div class="card-body">
@@ -97,7 +97,7 @@
                 <td style="text-align: center">
                   <div class="btn-group">
                     <a href="view_request?id=<c:out value="${donorRequest.requestID}"/>" class="btn btn-sm btn-primary"><i class="fa-solid fa-eye"></i>  View </a> &nbsp;
-                    <a href="edit_request?id=<c:out value="${donorRequest.requestID}"/>" class="btn btn-sm btn-warning"><i class="fa-solid fa-user-pen"></i>  Edit </a> &nbsp;
+                    <a href="edit_request?id=<c:out value="${donorRequest.requestID}"/>" class="btn btn-sm btn-warning"><i class="fa-solid fa-gears"></i>  Process </a> &nbsp;
                       <%--<a href="cancel_request?id=<c:out value="${donorRequest.requestID}"/>" class="btn btn-sm btn-danger"><i class="fa-solid fa-square-xmark"></i>  Cancel </a>--%>
                   </div>
                 </td>
