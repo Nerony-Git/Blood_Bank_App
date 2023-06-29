@@ -23,6 +23,7 @@ public class UserDao {
     private static final String CHANGE_PASSWORD_SQL = "UPDATE donors SET password = ? WHERE donor_id = ?";
     private static final String GET_ALL_DONORS_SQL = "SELECT * FROM donors ORDER BY donor_id ASC";
     private static final String GET_DONOR_NAME_SQL = "SELECT first_name, last_name, other_name FROM donors WHERE donor_id = ?";
+    private static final String DELETE_DONOR_BY_ID_SQL = "UPDATE donors SET deleted = ? WHERE donor_id = ?";
 
 
     public User validateUser(String username, String password) throws SQLException {
@@ -237,6 +238,20 @@ public class UserDao {
             }
         }
         return donorsName;
+    }
+
+    public boolean deleteDonorByID(String donorID) throws SQLException {
+        boolean u;
+        String status = "Yes";
+
+        try (Connection connection = JDBCUtils.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement(DELETE_DONOR_BY_ID_SQL)){
+            preparedStatement.setString(1, status);
+            preparedStatement.setString(2, donorID);
+
+            u = preparedStatement.executeUpdate() > 0;
+        }
+        return u;
     }
 
 }
