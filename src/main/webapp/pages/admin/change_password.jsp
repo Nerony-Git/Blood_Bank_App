@@ -49,7 +49,7 @@
       <div class="col-md-6 offset-md-3">
         <div class="card bg_border">
           <div class="card-header text-center">
-            <img class="bg_img" src="assets/img/admin/change_password.png" alt="Change password title.">
+            <img class="bg_img" src="assets/img/web/change_password.png" alt="Change password title.">
           </div>
 
           <div class="card-body">
