@@ -110,7 +110,7 @@
                             </div>
                             <br/>
                             <div class="input-group justify" style="justify-content: center;">
-                                <button type="submit" class="bg_btn">&nbsp;<i class="fa-solid fa-tent"></i> &nbsp; Add New Donation Camp &nbsp;</button>
+                                <button type="submit" class="bg_btn">&nbsp; &nbsp;<i class="fa-solid fa-tent"></i> &nbsp; Add New Donation Camp &nbsp; &nbsp;</button>
                             </div>
                             <br/>
                             <br/>
