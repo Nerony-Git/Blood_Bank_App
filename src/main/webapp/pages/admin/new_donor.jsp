@@ -162,7 +162,7 @@
 
                 </div>
                 <div class="input-group justify" style="justify-content: center;">
-                  <button type="submit" class="bg_btn">&nbsp;<i class="fa-solid fa-user-plus"></i> &nbsp; Add New Donor &nbsp;</button>
+                  <button type="submit" class="bg_btn">&nbsp; &nbsp;<i class="fa-solid fa-user-plus"></i> &nbsp; Add New Donor &nbsp; &nbsp;</button>
                 </div>
 
               </div>
