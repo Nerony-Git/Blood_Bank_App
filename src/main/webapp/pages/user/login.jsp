@@ -67,11 +67,11 @@
                                             <input type="password" name="password" id="password" class="form-control" placeholder="Enter Password" aria-label="Password" aria-describedby="pass" required />
                                             <i class=" view_password input-group-text bi bi-eye-slash" id="togglePassword" onclick="showPassword('password', 'togglePassword')"></i>
                                         </div>
-
+                                        <br/>
 
                                         <div class="input-group justify" style="justify-content: center;">
 
-                                            <button type="submit" class="bg_btn">&nbsp;<i class="fa-solid fa-right-to-bracket"></i> &nbsp; Login &nbsp;</button>
+                                            <button type="submit" class="bg_btn">&nbsp; &nbsp;<i class="fa-solid fa-right-to-bracket"></i> &nbsp; Login &nbsp; &nbsp;</button>
                                         </div>
                                     </form>
                                     <!-- End Form -->
