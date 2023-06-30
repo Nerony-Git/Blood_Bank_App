@@ -48,7 +48,7 @@
         <div class="row">
             <div class="card bg_border">
                 <div class="card-header text-center">
-                    <img src="assets/img/web/view_requests.png" alt="View requests title.">
+                    <img class="bg_img" src="assets/img/web/view_blood_requests.png" alt="View requests title.">
                 </div>
 
                 <div class="card-body">
