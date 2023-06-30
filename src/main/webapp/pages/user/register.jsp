@@ -30,10 +30,9 @@
         <div class="row">
             <div class="col-md-8 offset-md-2">
                 <div class="card bg_border mb-5">
-                    <div class="card-header text-center text-white bg_color">
-                        <p class="fs-4 text-center text-white mt-2">
-                            <i class="fa-solid fa-hospital-user"></i>  Donor Registration
-                        </p>
+                    <div class="card-header text-center">
+                        <img class="bg_img" src="assets/img/donor/donor_registration.png" alt="Donor registration title">
+
                     </div>
                     <div class="card-body">
                         <!-- Success Message -->
@@ -151,7 +150,7 @@
                                 </div>
 
                                 <div class="input-group justify" style="justify-content: center;">
-                                    <button type="submit" class="bg_btn">&nbsp;<i class="fa-solid fa-user-plus"></i> &nbsp; Add New Donor &nbsp;</button>
+                                    <button type="submit" class="bg_btn">&nbsp; &nbsp;<i class="fa-solid fa-user-plus"></i> &nbsp; Add New Donor &nbsp; &nbsp;</button>
                                 </div>
 
                                 <br/>
