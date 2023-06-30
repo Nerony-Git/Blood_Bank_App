@@ -50,7 +50,7 @@
             <div class="col-md-6 offset-md-3">
                 <div class="card bg_border">
                     <div class="card-header text-center">
-                        <img src="assets/img/web/view_donation.png" alt="Donation title">
+                        <img class="bg_img" src="assets/img/web/blood_donated_details.png" alt="Donation title">
                         <%--<p class="fs-4 text-center text-white mt-2">
                           <i class="fa-solid fa-user"></i>   Blood Donated
                         </p>--%>
