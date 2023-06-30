@@ -49,7 +49,7 @@
             <div class="col-md-8 offset-md-2">
                 <div class="card bg_border">
                     <div class="card-header text-center">
-                        <img src="assets/img/web/update_profile.png" alt="Edit profile title.">
+                        <img class="bg_img" src="assets/img/web/edit_profile_details.png" alt="Edit profile title.">
                         <%--<p class="fs-4 text-center text-white mt-2">
                             <i class="fa-solid fa-user-pen"></i>  Edit Profile Details
                         </p>--%>
@@ -157,7 +157,7 @@
 
                                 </div>
                                 <div class="input-group justify" style="justify-content: center;">
-                                    <button type="submit" class="bg_btn">&nbsp;<i class="fa-solid fa-user-gear"></i> &nbsp; Update Profile &nbsp; </button>
+                                    <button type="submit" class="bg_btn">&nbsp; &nbsp;<i class="fa-solid fa-user-gear"></i> &nbsp; Update Profile &nbsp; &nbsp; </button>
                                 </div>
 
                             </div>
