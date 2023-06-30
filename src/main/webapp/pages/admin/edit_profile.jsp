@@ -49,7 +49,7 @@
             <div class="col-md-8 offset-md-2">
                 <div class="card bg_border">
                     <div class="card-header text-center">
-                        <img class="bg_img" src="assets/img/admin/edit_profile_details.png" alt="Edit profile details title.">
+                        <img class="bg_img" src="assets/img/web/edit_profile_details.png" alt="Edit profile details title.">
                     </div>
                     <div class="card-body">
                         <!-- Success Message -->
