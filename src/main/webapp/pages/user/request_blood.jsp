@@ -49,7 +49,7 @@
             <div class="col-md-8 offset-md-2">
                 <div class="card bg_border">
                     <div class="card-header text-center">
-                        <img src="assets/img/web/request_blood.png" alt="Request blood title">
+                        <img class="bg_img" src="assets/img/donor/request_blood.png" alt="Request blood title">
                         <%--<p class="fs-4 text-center text-white mt-2">
                             <i class="fa-solid fa-user"></i>   Request Blood
                         </p>--%>
@@ -142,7 +142,7 @@
                             <br/>
                             <br/>
                             <div class="input-group justify" style="justify-content: center;">
-                                <button type="submit" class="bg_btn">&nbsp;<i class="fa-solid fa-hand-holding-droplet"></i> &nbsp; Request Blood &nbsp;</button>
+                                <button type="submit" class="bg_btn">&nbsp; &nbsp;<i class="fa-solid fa-hand-holding-droplet"></i> &nbsp; Request Blood &nbsp; &nbsp;</button>
                             </div>
                             <br/>
                             <br/>
