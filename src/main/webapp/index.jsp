@@ -110,7 +110,7 @@
                 </div>
                 
                 <div class="col-lg-4">
-                    <a href="">
+                    <a href="<%=request.getContextPath()%>/user_register">
                         <img src="assets/img/web/register_donor.png" alt="Donor Registration" class="img-fluid">
                     </a>
                 </div>
