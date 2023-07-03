@@ -24,7 +24,7 @@
         <%--<li id="about"><a class="nav-link" href="<%=request.getContextPath()%>/about_us"><i class="fa-solid fa-address-card"></i> &nbsp; About Us</a> </li>
         <li id="contact"><a class="nav-link" href="<%=request.getContextPath()%>/contact_us"><i class="fa-solid fa-phone-volume"></i> &nbsp; Contact Us</a> </li>--%>
         <%--<li><a class="nav-link" href=""><i class="fas fa-sign-in-alt"></i> &nbsp; Login </a> </li>--%>
-        <li class="dropdown" id="login"><a href="#"><i class="fas fa-circle-user fa-2x"></i> <span> &nbsp; ${admin.firstName} ${admin.lastName}</span> <i class="bi bi-chevron-down"></i> </a>
+        <li class="dropdown" id="user"><a href="#"><i class="fas fa-circle-user"></i> <span> &nbsp; ${admin.firstName} ${admin.lastName}</span> <i class="bi bi-chevron-down"></i> </a>
           <ul>
             <li><a class="nav-link" href="<%=request.getContextPath()%>/admin_profile"><i class="fa-solid fa-id-card"></i> &nbsp; View Profile </a> </li>
             <li><a class="nav-link" href="<%=request.getContextPath()%>/admin_edit"><i class="fa-solid fa-user-pen"></i> &nbsp; Edit Profile </a> </li>
