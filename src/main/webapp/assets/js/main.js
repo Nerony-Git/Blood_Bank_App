@@ -145,17 +145,57 @@ const homeLi = document.getElementById('home');
 const aboutLi = document.getElementById('about');
 const contactLi = document.getElementById('contact');
 const loginLi = document.getElementById('login');
+const userLoginLi = document.querySelector('#login > ul > li:first-child');
+const adminLoginLi = document.querySelector('#login > ul > li:last-child');
 const signupLi = document.getElementById('signup');
+const userRegisterLi = document.querySelector('#signup > ul > li:first-child');
+const adminRegisterLi = document.querySelector('#signup > ul > li:last-child');
+const userLi = document.getElementById('user');
+const viewProfileLi = document.querySelector('#user > ul > li:first-child');
+const editProfileLi = document.querySelector('#user > ul > li:nth-child(2)');
+const changePasswordLi = document.querySelector('#user > ul > li:nth-child(3)');
+const logoutLi = document.querySelector('#user > ul > li:last-child');
+
 
 // Check if the current URL matches the respective page URL and add the 'active' class
 if (currentURL.includes('/about_us')) {
     aboutLi.classList.add('active');
 } else if (currentURL.includes('/contact_us')) {
     contactLi.classList.add('active');
-} else if (currentURL.includes('/user_login') || currentURL.includes('/admin_login')) {
+} else if (currentURL.includes('/user_login')) {
     loginLi.classList.add('active');
-} else if (currentURL.includes('/user_register') || currentURL.includes('/admin_register')) {
+    userLoginLi.classList.add('active');
+    adminLoginLi.classList.remove('active');
+} else if (currentURL.includes('/admin_login')){
+    loginLi.classList.add('active');
+    adminLoginLi.classList.add('active');
+    userLoginLi.classList.remove('active');
+} else if (currentURL.includes('/user_register')) {
     signupLi.classList.add('active');
+    userRegisterLi.classList.add('active');
+    adminRegisterLi.classList.remove('active');
+} else if (currentURL.includes('/admin_register')) {
+    signupLi.classList.add('active');
+    adminRegisterLi.classList.add('active');
+    userRegisterLi.classList.remove('active');
+} else if (currentURL.includes('/user_profile') || currentURL.includes('/admin_profile')) {
+    userLi.classList.add('active');
+    viewProfileLi.classList.add('active');
+    editProfileLi.classList.remove('active');
+    changePasswordLi.classList.remove('active');
+    logoutLi.classList.remove('active');
+} else if (currentURL.includes('/user_edit') || currentURL.includes('/admin_edit')) {
+    userLi.classList.add('active');
+    editProfileLi.classList.add('active');
+    viewProfileLi.classList.remove('active');
+    changePasswordLi.classList.remove('active');
+    logoutLi.classList.remove('active');
+} else if (currentURL.includes('/user_password') || currentURL.includes('/admin_password')) {
+    userLi.classList.add('active');
+    changePasswordLi.classList.add('active');
+    viewProfileLi.classList.remove('active');
+    editProfileLi.classList.remove('active');
+    logoutLi.classList.remove('active');
 } else {
     homeLi.classList.add('active');
 }
