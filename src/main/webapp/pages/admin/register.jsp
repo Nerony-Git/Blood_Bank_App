@@ -150,7 +150,7 @@
                                 <br/>
                                 <br/>
                                 <div class="input-group justify" style="justify-content: center;">
-                                    <button type="submit" class="bg_btn">&nbsp; &nbsp;<i class="fa-solid fa-user-plus"></i> &nbsp; Add New Admin &nbsp; &nbsp;</button>
+                                    <button type="submit" class="bg_btn" name="adminSubmit">&nbsp; &nbsp;<i class="fa-solid fa-user-plus"></i> &nbsp; Add New Admin &nbsp; &nbsp;</button>
                                 </div>
 
                                 <br/>
