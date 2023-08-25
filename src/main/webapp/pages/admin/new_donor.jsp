@@ -12,7 +12,7 @@
 <html>
 <head>
   <meta charset="ISO-8859-1">
-  <title>Blood Bank - Edit Profile</title>
+  <title>Blood Bank - New Donor</title>
   <jsp:include page="../../assets/head/head.jsp"></jsp:include>
   <link rel="stylesheet" href="assets/css/main.css">
 
