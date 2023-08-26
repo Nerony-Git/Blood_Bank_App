@@ -37,11 +37,6 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.graphwalker</groupId>
-            <artifactId>graphwalker-core</artifactId>
-            <version>4.3.2</version>
-        </dependency>
-        <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-api</artifactId>
             <version>4.8.1</version>
@@ -70,6 +65,12 @@
             <groupId>org.graphstream</groupId>
             <artifactId>gs-ui</artifactId>
             <version>1.3</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>xml-apis</groupId>
+                    <artifactId>xml-apis</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.graphstream</groupId>
@@ -99,6 +100,20 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.3.2</version>
+            </plugin>
+            <plugin>
+                <groupId>org.graphwalker</groupId>
+                <artifactId>graphwalker-maven-plugin</artifactId>
+                <version>4.3.2</version>
+                <executions>
+                    <execution>
+                        <id>generate-sources</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>generate-sources</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
