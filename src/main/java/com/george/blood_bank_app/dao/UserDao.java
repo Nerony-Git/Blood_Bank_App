@@ -57,7 +57,7 @@ public class UserDao {
     }
 
     public boolean updateUser(User user) throws SQLException {
-        boolean u;
+        boolean u = false;
 
         try (Connection connection = JDBCUtils.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(DONOR_UPDATE_PROFILE_SQL)){
@@ -75,6 +75,8 @@ public class UserDao {
 
             u = preparedStatement.executeUpdate() > 0;
 
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         return u;
