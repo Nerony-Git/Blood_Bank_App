@@ -44,7 +44,7 @@
 
         <div class="row dash mb-5">
 
-            <div class="col-md-4 offset-md-2">
+            <div class="col-md-4 offset-md-2" id="viewDonations">
                 <a href="<%=request.getContextPath()%>/view_donations">
                     <div class="card bg_border">
                         <div class="card-body text-center">
@@ -58,7 +58,7 @@
                 </a>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-4" id="newRequests">
                 <a href="<%=request.getContextPath()%>/view_new_requests">
                     <div class="card bg_border">
                         <div class="card-body text-center">
@@ -76,7 +76,7 @@
 
         <div class="row dash">
 
-            <div class="col-md-4">
+            <div class="col-md-4" id="viewRequests">
                 <a href="<%=request.getContextPath()%>/view_requests">
                     <div class="card bg_border">
                         <div class="card-body text-center">
@@ -90,7 +90,7 @@
                 </a>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-4" id="viewCamps">
                 <a href="<%=request.getContextPath()%>/view_camps">
                     <div class="card bg_border">
                         <div class="card-body text-center">
@@ -104,7 +104,7 @@
                 </a>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-4" id="viewDonors">
                 <a href="<%=request.getContextPath()%>/users">
                     <div class="card bg_border">
                         <div class="card-body text-center">
