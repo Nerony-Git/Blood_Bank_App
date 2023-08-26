@@ -159,7 +159,7 @@ public class BloodBankAppTest {
         driver.findElement(By.name("otherName")).sendKeys("Middle");
         driver.findElement(By.name("username")).sendKeys("johndoe");
         driver.findElement(By.name("gender")).sendKeys("M");
-        driver.findElement(By.name("dob")).sendKeys("2000-01-01"); // Date format might need to be adjusted
+        driver.findElement(By.name("dob")).sendKeys("2000-01-01");
         driver.findElement(By.name("contact")).sendKeys("12345678960");
         driver.findElement(By.name("email")).sendKeys("johndoe@example.com");
         driver.findElement(By.name("address")).sendKeys("123 Main St");
