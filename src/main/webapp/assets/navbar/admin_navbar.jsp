@@ -20,7 +20,7 @@
 
     <nav id="navbar" class="navbar navi">
       <ul>
-        <li id="home"><a class="nav-link" href="<%=request.getContextPath()%>/"><i class="fa-solid fa-gauge-high"></i> &nbsp; Home</a> </li>
+        <li id="home"><a class="nav-link" href="<%=request.getContextPath()%>/admin_dashboard"><i class="fa-solid fa-gauge-high"></i> &nbsp; Home</a> </li>
         <%--<li id="about"><a class="nav-link" href="<%=request.getContextPath()%>/about_us"><i class="fa-solid fa-address-card"></i> &nbsp; About Us</a> </li>
         <li id="contact"><a class="nav-link" href="<%=request.getContextPath()%>/contact_us"><i class="fa-solid fa-phone-volume"></i> &nbsp; Contact Us</a> </li>--%>
         <%--<li><a class="nav-link" href=""><i class="fas fa-sign-in-alt"></i> &nbsp; Login </a> </li>--%>
