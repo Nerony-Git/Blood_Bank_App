@@ -1,25 +1,33 @@
 package com.george.blood_bank_app.modelImpl;
 
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.Selenide;
 import com.george.blood_bank_app.DonorPage;
 import com.github.javafaker.Faker;
 import org.graphwalker.core.machine.ExecutionContext;
 import org.graphwalker.java.annotation.GraphWalker;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
-import static com.codeborne.selenide.Condition.attribute;
+import static com.codeborne.selenide.Condition.*;
 import static com.codeborne.selenide.Selenide.*;
 
 @GraphWalker(value = "random(edge_coverage(100))")
 public class DonorPageTest extends ExecutionContext implements DonorPage {
 
     Faker faker = new Faker();
+    WebDriver driver;
 
     @Override
     public void v_DonorViewProfile() {
@@ -29,12 +37,18 @@ public class DonorPageTest extends ExecutionContext implements DonorPage {
 
     @Override
     public void e_DonorViewRequest() {
-        ElementsCollection viewLinks = $$("a:contains('View')");
+        // Find all links containing "View" in their text
+        ElementsCollection viewLinks = $$("a").filterBy(text("View"));
+
+        // Check if there are any matching links
         int numLinks = viewLinks.size();
         if (numLinks > 0) {
-            Random random = new Random();
-            int randomIndex = random.nextInt(numLinks);
+            // Generate a random index and click on the link
+            int randomIndex = (int) (Math.random() * numLinks);
             viewLinks.get(randomIndex).click();
+        } else {
+            // Handle case when no matching links are found
+            System.out.println("No 'View' links found.");
         }
     }
 
@@ -52,7 +66,6 @@ public class DonorPageTest extends ExecutionContext implements DonorPage {
 
     @Override
     public void e_DonorEditProfileFailed() {
-        $(By.name("gender")).clear();
         $(By.name("email")).clear();
         $(By.name("email")).sendKeys(faker.internet().emailAddress());
         $(By.name("otherName")).clear();
@@ -68,12 +81,18 @@ public class DonorPageTest extends ExecutionContext implements DonorPage {
 
     @Override
     public void e_DonorViewDonation() {
-        ElementsCollection viewLinks = $$("a:contains('View')");
+        // Find all links containing "View" in their text
+        ElementsCollection viewLinks = $$("a").filterBy(text("View"));
+
+        // Check if there are any matching links
         int numLinks = viewLinks.size();
         if (numLinks > 0) {
-            Random random = new Random();
-            int randomIndex = random.nextInt(numLinks);
+            // Generate a random index and click on the link
+            int randomIndex = (int) (Math.random() * numLinks);
             viewLinks.get(randomIndex).click();
+        } else {
+            // Handle case when no matching links are found
+            System.out.println("No 'View' links found.");
         }
     }
 
@@ -123,19 +142,23 @@ public class DonorPageTest extends ExecutionContext implements DonorPage {
 
     @Override
     public void e_DonorRequestBlood() {
-        // Locate the "View Request" link by its parent div and the link text
-/*        WebElement viewRequestLink = driver.findElement(By.xpath("//div[@id='viewRequest']//a[contains(text(), 'View Request')]"));*/
-        executeJavaScript("document.getElementById('requestBlood').click();");
+        Selenide.open("http://localhost:8080/Blood_Bank_App-1.0-SNAPSHOT/user_request_blood");
+        /*executeJavaScript("document.getElementById('requestBlood').click();");*/
+    }
+
+    @Override
+    public void e_DonorBloodDonations_nav() {
+        $("a[href*='/donor_donations']").click();
     }
 
     @Override
     public void e_DonorBloodDonations() {
-        executeJavaScript("document.getElementById('viewDonation').click();");
+        Selenide.open("http://localhost:8080/Blood_Bank_App-1.0-SNAPSHOT/donor_donations");
+        /*executeJavaScript("document.getElementById('viewDonation').click();");*/
     }
 
     @Override
     public void e_DonorEditProfileSuccess() {
-        $(By.name("gender")).clear();
         $(By.name("gender")).sendKeys(faker.options().option("M", "F"));
         $(By.name("email")).clear();
         $(By.name("email")).sendKeys(faker.internet().emailAddress());
@@ -172,6 +195,11 @@ public class DonorPageTest extends ExecutionContext implements DonorPage {
     }
 
     @Override
+    public void e_DonorBloodRequests_nav() {
+        $("a[href*='/donor_requests']").click();
+    }
+
+    @Override
     public void v_DonorDonateBlood() {
         // Verify the page title
         $("title").shouldHave(attribute("text", "Blood Bank - Donate Blood"));
@@ -202,14 +230,21 @@ public class DonorPageTest extends ExecutionContext implements DonorPage {
 
     @Override
     public void e_DonorBloodRequests() {
-        executeJavaScript("document.getElementById('viewRequest').click();");
+        Selenide.open("http://localhost:8080/Blood_Bank_App-1.0-SNAPSHOT/donor_requests");
+        /*executeJavaScript("document.getElementById('viewRequest').click();");*/
     }
 
     public void donateBlood() {
         Select donationCamp = new Select($(By.name("donationCamp")));
         int numDonationCamp = donationCamp.getOptions().size();
         int randomIndex = faker.random().nextInt(numDonationCamp);
-        donationCamp.selectByIndex(randomIndex);
+        WebElement option = donationCamp.getOptions().get(randomIndex);
+        if (option.isEnabled()) {
+            donationCamp.selectByIndex(randomIndex);
+        } else {
+            // Handle the case where the option is disabled
+            // You can either skip this option or take appropriate action
+        }
 
         // Generate a random future date
         LocalDate futureDate = faker.date().future(14, java.util.concurrent.TimeUnit.DAYS).toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
