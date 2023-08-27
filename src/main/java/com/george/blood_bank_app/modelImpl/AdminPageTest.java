@@ -1,28 +1,35 @@
 package com.george.blood_bank_app.modelImpl;
 
 import com.codeborne.selenide.ElementsCollection;
+import com.codeborne.selenide.Selenide;
 import com.george.blood_bank_app.AdminPage;
 import com.github.javafaker.Faker;
 import org.graphwalker.core.machine.ExecutionContext;
 import org.graphwalker.java.annotation.GraphWalker;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.util.Random;
 
-import static com.codeborne.selenide.Condition.attribute;
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$;
+import static com.codeborne.selenide.Condition.*;
+import static com.codeborne.selenide.Selenide.*;
 
 @GraphWalker(value = "random(edge_coverage(100))")
 public class AdminPageTest extends ExecutionContext implements AdminPage {
 
     Faker faker = new Faker();
+    WebDriverWait waiter;
+    WebDriver driver;
 
     @Override
     public void e_NewRequest() {
-        $(By.id("#newRequests a")).click();
+        Selenide.open("http://localhost:8080/Blood_Bank_App-1.0-SNAPSHOT/view_new_requests");
+        /*executeJavaScript("document.getElementById('newRequests').click();");*/
     }
 
     @Override
@@ -50,11 +57,13 @@ public class AdminPageTest extends ExecutionContext implements AdminPage {
         $(By.name("details")).clear();
         $(By.name("details")).sendKeys(faker.lorem().sentence());
         $("button[type=\"submit\"]").click();
+        /*new Thread(String.valueOf(5000));*/
     }
 
     @Override
     public void e_ViewRequests() {
-        $(By.id("#viewRequests a")).click();
+        Selenide.open("http://localhost:8080/Blood_Bank_App-1.0-SNAPSHOT/view_requests");
+        /*executeJavaScript("document.getElementById('viewRequests').click();");*/
     }
 
     @Override
@@ -92,6 +101,11 @@ public class AdminPageTest extends ExecutionContext implements AdminPage {
     }
 
     @Override
+    public void e_NewRequest_nav() {
+        $("a[href*='/view_new_requests']").click();
+    }
+
+    @Override
     public void v_ViewDonorProfile() {
         // Verify the page title
         $("title").shouldHave(attribute("text", "Blood Bank - View Donor Profile"));
@@ -105,12 +119,18 @@ public class AdminPageTest extends ExecutionContext implements AdminPage {
 
     @Override
     public void e_ProcessRequest() {
-        ElementsCollection processLinks = $$("a:contains('Process')");
+        // Find all links containing "Process" in their text
+        ElementsCollection processLinks = $$("a").filterBy(text("Process"));
+
+        // Check if there are any matching links
         int numLinks = processLinks.size();
         if (numLinks > 0) {
-            Random random = new Random();
-            int randomIndex = random.nextInt(numLinks);
+            // Generate a random index and click on the link
+            int randomIndex = (int) (Math.random() * numLinks);
             processLinks.get(randomIndex).click();
+        } else {
+            // Handle case when no matching links are found
+            System.out.println("No 'Process' links found.");
         }
     }
 
@@ -123,28 +143,41 @@ public class AdminPageTest extends ExecutionContext implements AdminPage {
 
     @Override
     public void e_Donors() {
-        $(By.id("#viewDonors a")).click();
+        executeJavaScript("document.getElementById('viewDonors').click();");
     }
 
     @Override
     public void e_EditDonation() {
-        ElementsCollection editLinks = $$("a:contains('Edit')");
+        // Find all links containing "Edit" in their text
+        ElementsCollection editLinks = $$("a").filterBy(text("Edit"));
+
+        // Check if there are any matching links
         int numLinks = editLinks.size();
         if (numLinks > 0) {
-            Random random = new Random();
-            int randomIndex = random.nextInt(numLinks);
+            // Generate a random index and click on the link
+            int randomIndex = (int) (Math.random() * numLinks);
             editLinks.get(randomIndex).click();
+        } else {
+            // Handle case when no matching links are found
+            System.out.println("No 'Edit' links found.");
         }
     }
 
     @Override
     public void e_AddNewDonorSuccess() {
         fillDonorData();
-        $(By.name("bloodGroup")).clear();
         $(By.name("bloodGroup")).sendKeys(faker.name().bloodGroup());
-        $(By.name("password")).clear();
-        $(By.name("password")).sendKeys(faker.internet().password());
         $("button[type=\"submit\"]").click();
+    }
+
+    @Override
+    public void e_Donors_nav() {
+        $("a[href*='/users']").click();
+    }
+
+    @Override
+    public void e_ViewRequests_nav() {
+        $("a[href*='/view_requests']").click();
     }
 
     @Override
@@ -155,7 +188,7 @@ public class AdminPageTest extends ExecutionContext implements AdminPage {
 
     @Override
     public void e_DonationCamps() {
-        $(By.id("#viewCamps a")).click();
+        executeJavaScript("document.getElementById('viewCamps').click();");
     }
 
     @Override
@@ -203,23 +236,35 @@ public class AdminPageTest extends ExecutionContext implements AdminPage {
 
     @Override
     public void e_ViewDonorProfile() {
-        ElementsCollection viewLinks = $$("a:contains('View')");
+        // Find all links containing "View" in their text
+        ElementsCollection viewLinks = $$("a").filterBy(text("View"));
+
+        // Check if there are any matching links
         int numLinks = viewLinks.size();
         if (numLinks > 0) {
-            Random random = new Random();
-            int randomIndex = random.nextInt(numLinks);
+            // Generate a random index and click on the link
+            int randomIndex = (int) (Math.random() * numLinks);
             viewLinks.get(randomIndex).click();
+        } else {
+            // Handle case when no matching links are found
+            System.out.println("No 'View' links found.");
         }
     }
 
     @Override
     public void e_EditDonationCamp() {
-        ElementsCollection editLinks = $$("a:contains('Edit')");
+        // Find all links containing "Edit" in their text
+        ElementsCollection editLinks = $$("a").filterBy(text("Edit"));
+
+        // Check if there are any matching links
         int numLinks = editLinks.size();
         if (numLinks > 0) {
-            Random random = new Random();
-            int randomIndex = random.nextInt(numLinks);
+            // Generate a random index and click on the link
+            int randomIndex = (int) (Math.random() * numLinks);
             editLinks.get(randomIndex).click();
+        } else {
+            // Handle case when no matching links are found
+            System.out.println("No 'Edit' links found.");
         }
     }
 
@@ -231,12 +276,18 @@ public class AdminPageTest extends ExecutionContext implements AdminPage {
 
     @Override
     public void e_ViewDonationCamp() {
-        ElementsCollection viewLinks = $$("a:contains('View')");
+        // Find all links containing "View" in their text
+        ElementsCollection viewLinks = $$("a").filterBy(text("View"));
+
+        // Check if there are any matching links
         int numLinks = viewLinks.size();
         if (numLinks > 0) {
-            Random random = new Random();
-            int randomIndex = random.nextInt(numLinks);
+            // Generate a random index and click on the link
+            int randomIndex = (int) (Math.random() * numLinks);
             viewLinks.get(randomIndex).click();
+        } else {
+            // Handle case when no matching links are found
+            System.out.println("No 'View' links found.");
         }
     }
 
@@ -248,12 +299,18 @@ public class AdminPageTest extends ExecutionContext implements AdminPage {
 
     @Override
     public void e_EditDonorProfile() {
-        ElementsCollection editLinks = $$("a:contains('Edit')");
+        // Find all links containing "Edit" in their text
+        ElementsCollection editLinks = $$("a").filterBy(text("Edit"));
+
+        // Check if there are any matching links
         int numLinks = editLinks.size();
         if (numLinks > 0) {
-            Random random = new Random();
-            int randomIndex = random.nextInt(numLinks);
+            // Generate a random index and click on the link
+            int randomIndex = (int) (Math.random() * numLinks);
             editLinks.get(randomIndex).click();
+        } else {
+            // Handle case when no matching links are found
+            System.out.println("No 'Edit' links found.");
         }
     }
 
@@ -279,7 +336,6 @@ public class AdminPageTest extends ExecutionContext implements AdminPage {
 
     @Override
     public void e_AdminEditProfileSuccess() {
-        $(By.name("gender")).clear();
         $(By.name("gender")).sendKeys(faker.options().option("M", "F"));
         $(By.name("email")).clear();
         $(By.name("email")).sendKeys(faker.internet().emailAddress());
@@ -298,9 +354,7 @@ public class AdminPageTest extends ExecutionContext implements AdminPage {
 
     @Override
     public void e_AdminEditProfileFailed() {
-        $(By.name("gender")).clear();
         $(By.name("email")).clear();
-        $(By.name("email")).sendKeys(faker.internet().emailAddress());
         $(By.name("otherName")).clear();
         $(By.name("otherName")).sendKeys(faker.name().nameWithMiddle());
         $("button[type=\"submit\"]").click();
@@ -313,24 +367,41 @@ public class AdminPageTest extends ExecutionContext implements AdminPage {
 
     @Override
     public void e_DeleteDonationCampSuccess() {
-        ElementsCollection deleteLinks = $$("a:contains('Delete')");
+        // Find all links containing "Delete" in their text
+        ElementsCollection deleteLinks = $$("a").filterBy(text("Delete"));
+
+        // Check if there are any matching links
         int numLinks = deleteLinks.size();
         if (numLinks > 0) {
-            Random random = new Random();
-            int randomIndex = random.nextInt(numLinks);
+            // Generate a random index and click on the link
+            int randomIndex = (int) (Math.random() * numLinks);
             deleteLinks.get(randomIndex).click();
+        } else {
+            // Handle case when no matching links are found
+            System.out.println("No 'Delete' links found.");
         }
     }
 
     @Override
     public void e_ViewDonation() {
-        ElementsCollection viewLinks = $$("a:contains('View')");
+        // Find all links containing "View" in their text
+        ElementsCollection viewLinks = $$("a").filterBy(text("View"));
+
+        // Check if there are any matching links
         int numLinks = viewLinks.size();
         if (numLinks > 0) {
-            Random random = new Random();
-            int randomIndex = random.nextInt(numLinks);
+            // Generate a random index and click on the link
+            int randomIndex = (int) (Math.random() * numLinks);
             viewLinks.get(randomIndex).click();
+        } else {
+            // Handle case when no matching links are found
+            System.out.println("No 'View' links found.");
         }
+    }
+
+    @Override
+    public void e_ViewDonations_nav() {
+        $("a[href*='/view_donations']").click();
     }
 
     @Override
@@ -372,19 +443,31 @@ public class AdminPageTest extends ExecutionContext implements AdminPage {
     }
 
     @Override
+    public void e_DonationCamps_nav() {
+        $("a[href*='/view_camps']").click();
+    }
+
+    @Override
     public void e_ViewRequest() {
-        ElementsCollection viewLinks = $$("a:contains('View')");
+        // Find all links containing "View" in their text
+        ElementsCollection viewLinks = $$("a").filterBy(text("View"));
+
+        // Check if there are any matching links
         int numLinks = viewLinks.size();
         if (numLinks > 0) {
-            Random random = new Random();
-            int randomIndex = random.nextInt(numLinks);
+            // Generate a random index and click on the link
+            int randomIndex = (int) (Math.random() * numLinks);
             viewLinks.get(randomIndex).click();
+        } else {
+            // Handle case when no matching links are found
+            System.out.println("No 'View' links found.");
         }
     }
 
     @Override
     public void e_ViewDonations() {
-        $(By.id("#viewDonations a")).click();
+        Selenide.open("http://localhost:8080/Blood_Bank_App-1.0-SNAPSHOT/view_donations");
+        /*executeJavaScript("document.getElementById('viewDonations').click();");*/
     }
 
     @Override
@@ -405,7 +488,6 @@ public class AdminPageTest extends ExecutionContext implements AdminPage {
         $(By.name("otherName")).sendKeys(faker.name().nameWithMiddle());
         $(By.name("username")).clear();
         $(By.name("username")).sendKeys(faker.name().username());
-        $(By.name("gender")).clear();
         $(By.name("gender")).sendKeys(faker.options().option("M", "F"));
         $(By.name("dob")).clear();
         $(By.name("dob")).sendKeys(dateFormat.format(faker.date().birthday()));
@@ -417,11 +499,7 @@ public class AdminPageTest extends ExecutionContext implements AdminPage {
         $(By.name("address")).sendKeys(faker.address().fullAddress());
         $(By.name("postalAddress")).clear();
         $(By.name("postalAddress")).sendKeys(faker.address().zipCode());
-
-        Select bloodGroup = new Select($(By.name("bloodGroup")));
-        int numBloodGroup = bloodGroup.getOptions().size();
-        int randomIndex = faker.random().nextInt(numBloodGroup);
-        bloodGroup.selectByIndex(randomIndex);
+        $(By.name("bloodGroup")).sendKeys(faker.name().bloodGroup());
     }
 
     private void fillDonationCamp() {
