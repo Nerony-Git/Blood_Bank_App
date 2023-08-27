@@ -12,7 +12,7 @@ import java.util.List;
 
 public class DonationCampDao {
 
-    private static final String GET_ALL_CAMPS_SQL = "SELECT * FROM donation_camp WHERE deleted IS NULL ORDER BY camp_name ASC";
+    private static final String GET_ALL_CAMPS_SQL = "SELECT * FROM donation_camp WHERE (deleted IS NULL OR deleted = '')  ORDER BY camp_name ASC";
     private static final String GET_CAMP_NAME_SQL = "SELECT camp_name FROM donation_camp WHERE camp_id = ?";
     private static final String INSERT_CAMP_SQL = "INSERT INTO donation_camp (camp_id, camp_name, organizers, address, postal_address, details) VALUES (?, ?, ?, ?, ?, ?)";
     private static final String GET_LAST_CAMP_ID_SQL = "SELECT camp_id FROM donation_camp ORDER BY camp_id DESC LIMIT 1";
