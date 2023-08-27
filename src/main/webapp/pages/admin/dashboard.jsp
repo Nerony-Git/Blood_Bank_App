@@ -44,8 +44,8 @@
 
         <div class="row dash mb-5">
 
-            <div class="col-md-4 offset-md-2" id="viewDonations">
-                <a href="<%=request.getContextPath()%>/view_donations">
+            <div class="col-md-4 offset-md-2">
+                <a id="viewDonations" href="<%=request.getContextPath()%>/view_donations">
                     <div class="card bg_border">
                         <div class="card-body text-center">
                             <br/>
@@ -58,8 +58,8 @@
                 </a>
             </div>
 
-            <div class="col-md-4" id="newRequests">
-                <a href="<%=request.getContextPath()%>/view_new_requests">
+            <div class="col-md-4">
+                <a id="newRequests" href="<%=request.getContextPath()%>/view_new_requests">
                     <div class="card bg_border">
                         <div class="card-body text-center">
                             <br/>
@@ -76,8 +76,8 @@
 
         <div class="row dash">
 
-            <div class="col-md-4" id="viewRequests">
-                <a href="<%=request.getContextPath()%>/view_requests">
+            <div class="col-md-4">
+                <a id="viewRequests" href="<%=request.getContextPath()%>/view_requests">
                     <div class="card bg_border">
                         <div class="card-body text-center">
                             <br/>
@@ -90,8 +90,8 @@
                 </a>
             </div>
 
-            <div class="col-md-4" id="viewCamps">
-                <a href="<%=request.getContextPath()%>/view_camps">
+            <div class="col-md-4">
+                <a id="viewCamps" href="<%=request.getContextPath()%>/view_camps">
                     <div class="card bg_border">
                         <div class="card-body text-center">
                             <br/>
@@ -104,8 +104,8 @@
                 </a>
             </div>
 
-            <div class="col-md-4" id="viewDonors">
-                <a href="<%=request.getContextPath()%>/users">
+            <div class="col-md-4">
+                <a id="viewDonors" href="<%=request.getContextPath()%>/users">
                     <div class="card bg_border">
                         <div class="card-body text-center">
                             <br/>
